@@ -4,6 +4,17 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 
 const main = async () => {
+
+    await createConnection({
+        type: "mysql",
+        database:"bts",
+        username: process.env.MYSQL_USERNAME,
+        password: process.env.MYSQL_PASSWORD,
+        logging: true,                  // For displaying sql statements
+        synchronize: false,             // If true, creates tables for entities that don't exist
+        entities: [],
+
+    })
     
     const app = express();
     app.use(cors());
