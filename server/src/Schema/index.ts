@@ -22,8 +22,10 @@ import { CREATE_USER } from "./Mutations/User";
  * - Transaction
  * - - Mutations:
  * - - - updateTransaction(Transaction): returns None
+ * - - - createTransaction(Transaction): returns None
  * - - Queries:
  * - - - getTransactions(trader_id): returns Transaction[]
+ * - - - getClientMonthlyTransactions(client_id): returns Transaction[]
  * - - - getAllTransactions(): returns Transaction[]
  * 
  * - Trader
