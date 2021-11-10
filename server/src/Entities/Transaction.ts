@@ -37,5 +37,5 @@ export class Transaction extends BaseEntity {
   order_type!: string;
 
   @Column()
-  conv_rate!: number
+  conv_rate!: number;
 }
