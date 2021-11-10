@@ -33,4 +33,7 @@ export class Client extends User {
 
   @Column()
   address_id!: number;
+
+  @Column()
+  trader_id!: number;
 }
