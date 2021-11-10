@@ -10,7 +10,7 @@ import {
 @Entity()
 export class Trader extends BaseEntity {
   @PrimaryColumn()
-  id!: number
+  id!: number;
 
   @Column()
   first_name!: string;
