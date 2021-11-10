@@ -9,6 +9,7 @@ import { User } from "./Entities/User";
 dotenv.config();
 
 const main = async () => {
+
   await createConnection({
     type: "mysql",
     database: "bts",
@@ -33,7 +34,8 @@ const main = async () => {
   );
 
   app.listen(3001, () => {
-    console.log("SERVER RUNNING ON PORT 3001");
+    console.log("\nready - started server on http://localhost:3001");
+    console.log("\x1b[35mgraphql\x1b[39m - now running on \x1b[34mhttp://localhost:3001/graphql\x1b[39m");
   });
 };
 
