@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 
 @Entity()
-export class Client extends BaseEntity {
+export class Trader extends BaseEntity {
   @Column()
   first_name!: string;
 
