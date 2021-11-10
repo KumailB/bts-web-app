@@ -6,10 +6,9 @@ import {
   PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { User } from "./User";
 
 @Entity()
-export class Client extends User {
+export class Client extends BaseEntity {
   @Column()
   first_name!: string;
 

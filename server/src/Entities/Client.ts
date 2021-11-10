@@ -9,7 +9,10 @@ import {
 import { User } from "./User";
 
 @Entity()
-export class Client extends User {
+export class Client extends BaseEntity{
+  @PrimaryColumn()
+  id!: number
+
   @Column()
   first_name!: string;
 
@@ -30,10 +33,7 @@ export class Client extends User {
 
   @Column({ type: "date", default: "0000-00-00" })
   last_update!: string;
-
-  @Column()
-  address_id!: number;
-
+  
   @Column()
   trader_id!: number;
 }

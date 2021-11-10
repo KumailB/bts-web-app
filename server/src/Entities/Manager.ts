@@ -1,5 +1,7 @@
-import { Entity } from "typeorm";
-import { User } from "./User";
+import { BaseEntity, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
-export class Manager extends User {}
+export class Manager extends BaseEntity {
+  @PrimaryColumn()
+  id!: number
+}
