@@ -18,8 +18,8 @@ export class Transaction extends BaseEntity {
   @Column({ nullable: false, type: "float", default: 0.0 })
   value!: number;
 
-  @Column({ type: "date" })
-  date!: string;
+  @Column({ type: "timestamp" })
+  date!: Date;
 
   @Column({ nullable: false, type: "float", default: 0.0 })
   commission_paid!: number;
@@ -32,4 +32,10 @@ export class Transaction extends BaseEntity {
 
   @Column()
   client_id!: number;
+
+  @Column()
+  order_type!: string;
+
+  @Column()
+  conv_rate!: number
 }

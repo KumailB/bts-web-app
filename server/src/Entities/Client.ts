@@ -28,6 +28,9 @@ export class Client extends User {
   @Column({ nullable: false, type: "float", default: 0.0 })
   bitcoin!: number;
 
+  @Column({ type: "date", default: "0000-00-00" })
+  last_update!: string;
+
   @Column()
   address_id!: number;
 }
