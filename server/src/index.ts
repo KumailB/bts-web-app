@@ -4,6 +4,12 @@ import cors from "cors";
 import { createConnection, getConnectionManager } from "typeorm";
 import { schema } from "./Schema";
 import dotenv from "dotenv";
+import { Address } from "./Entities/Address";
+import { Client } from "./Entities/Client";
+import { Level } from "./Entities/Level";
+import { Manager } from "./Entities/Manager";
+import { Trader } from "./Entities/Trader";
+import { Transaction } from "./Entities/Transaction";
 import { User } from "./Entities/User";
 
 dotenv.config();
@@ -18,7 +24,7 @@ const main = async () => {
     password: process.env.MYSQL_PASSWORD,
     logging: true, // For displaying sql statements
     synchronize: false, // If true, creates tables for entities that don't exist
-    entities: [User],
+    entities: [Address, Client, Level, Manager, Trader, Transaction, User],
   });
 
   const app = express();

@@ -1,6 +1,8 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { GET_USER } from "./Queries/User";
 import { CREATE_USER } from "./Mutations/User";
+import { GET_CLIENT } from "./Queries/Client";
+import { UPDATE_CLIENT } from "./Mutations/Client";
 
 /**
  * Possible issues with schema:
@@ -18,12 +20,12 @@ import { CREATE_USER } from "./Mutations/User";
  * - - - getUser(email): returns User - DONE
  * - Client
  * - - Mutations:
- * - - - updateClient(Client): returns None
+ * - - - updateClient(Client): returns None - DONE
  * - - Queries:
  * - - - getAllClients(): returns Client[]
  * - - - getTraderClients(trader_id): returns Client[]
  * - - - getClients(name, address): returns Client[]
- * - - - getClientFromId(id): returns Client
+ * - - - getClient(id): returns Client
  *
  * - Transaction
  * - - Mutations:
@@ -64,6 +66,7 @@ const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
     getUser: GET_USER,
+    getClient: GET_CLIENT,
   },
 });
 
@@ -71,6 +74,7 @@ const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     createUser: CREATE_USER,
+    updateClient: UPDATE_CLIENT,
   },
 });
 
