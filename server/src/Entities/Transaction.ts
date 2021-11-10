@@ -1,29 +1,35 @@
-import { BaseEntity, Column, Entity, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
 export class Transaction extends BaseEntity {
+  @PrimaryColumn()
+  id!: number;
 
-    @PrimaryColumn()
-    id!: number;
+  @Column()
+  commission_payment_type!: string;
 
-    @Column()
-    commission_payment_type!: string;
+  @Column({ nullable: false, type: "float", default: 0.0 })
+  value!: number;
 
-    @Column({ nullable: false, type: "float", default: 0.0 })
-    value!: Number;
+  @Column({ type: "date" })
+  date!: string;
 
-    @Column({ type: 'date' })
-    date!: string;
+  @Column({ nullable: false, type: "float", default: 0.0 })
+  commission_paid!: number;
 
-    @Column({ nullable: false, type: "float", default: 0.0 })
-    commission_paid!: Number;
+  @Column()
+  status!: string;
 
-    @Column()
-    status!: string;
+  @Column()
+  trader_id!: number;
 
-    @Column()
-    trader_id!: number;
-
-    @Column()
-    client_id!: number;
+  @Column()
+  client_id!: number;
 }
