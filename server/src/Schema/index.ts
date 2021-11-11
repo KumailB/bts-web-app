@@ -39,6 +39,7 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  * - - Queries:
  * - - - getTransactions(trader_id): returns Transaction[]
  * - - - getClientMonthlyTransactions(client_id): returns Transaction[]
+ * - - - getClientTransactions(client_id): returns Transaction[]
  * - - - getAllTransactions(): returns Transaction[]
  *
  * - Trader
