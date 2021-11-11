@@ -1,7 +1,12 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { GET_USER } from "./Queries/User";
 import { CREATE_USER } from "./Mutations/User";
-import { GET_ALL_CLIENTS, GET_CLIENT, GET_SEARCH_CLIENTS, GET_TRADER_CLIENTS } from "./Queries/Client";
+import {
+  GET_ALL_CLIENTS,
+  GET_CLIENT,
+  GET_SEARCH_CLIENTS,
+  GET_TRADER_CLIENTS,
+} from "./Queries/Client";
 import { UPDATE_CLIENT } from "./Mutations/Client";
 
 /**
@@ -24,7 +29,7 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  * - - Queries:
  * - - - getAllClients(): returns Client[] - DONE
  * - - - getTraderClients(trader_id): returns Client[] - DONE
- * - - - getSearchClients(first_name, last_name, street_address, city, state, zip): returns Client[]
+ * - - - getSearchClients(first_name, last_name, street_address, city, state, zip): returns Client[] - DONE
  * - - - getClient(id): returns Client - DONE
  *
  * - Transaction
@@ -44,7 +49,7 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  *
  * - Manager
  * - - Mutations:
- * - - - 
+ * - - -
  * - - Queries:
  * - - - getManager(id): returns Manager
  *
