@@ -1,7 +1,7 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { GET_USER } from "./Queries/User";
 import { CREATE_USER } from "./Mutations/User";
-import { GET_CLIENT } from "./Queries/Client";
+import { GET_ALL_CLIENTS, GET_CLIENT } from "./Queries/Client";
 import { UPDATE_CLIENT } from "./Mutations/Client";
 
 /**
@@ -67,6 +67,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     getUser: GET_USER,
     getClient: GET_CLIENT,
+    getAllClients: GET_ALL_CLIENTS,
   },
 });
 
