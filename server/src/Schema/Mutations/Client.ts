@@ -1,4 +1,5 @@
 import { GraphQLFloat, GraphQLID, GraphQLString } from "graphql";
+import { QueryPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 import { Client } from "../../Entities/Client";
 import { ClientType } from "../TypeDefs/Client";
 
@@ -12,14 +13,13 @@ export const UPDATE_CLIENT = {
   },
   async resolve(parent: any, args: any) {
     const { id, usd, bitcoin, last_update } = args;
-    console.log(args);
+    let updateArgs: QueryPartialEntity<Client> = {};
+    if (usd) updateArgs.usd = usd;
+    if (bitcoin) updateArgs.bitcoin = bitcoin;
+    if (last_update) updateArgs.last_update = last_update;
     await Client.update(
       { id: id },
-      {
-        usd: usd,
-        bitcoin: bitcoin,
-        last_update: last_update,
-      }
+      updateArgs
     );
     return args;
   },
