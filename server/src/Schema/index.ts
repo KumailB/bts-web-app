@@ -1,7 +1,7 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { GET_USER } from "./Queries/User";
 import { CREATE_USER } from "./Mutations/User";
-import { GET_ALL_CLIENTS, GET_CLIENT } from "./Queries/Client";
+import { GET_ALL_CLIENTS, GET_CLIENT, GET_SEARCH_CLIENTS, GET_TRADER_CLIENTS } from "./Queries/Client";
 import { UPDATE_CLIENT } from "./Mutations/Client";
 
 /**
@@ -22,9 +22,9 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  * - - Mutations:
  * - - - updateClient(Client): returns None - DONE
  * - - Queries:
- * - - - getAllClients(): returns Client[]
- * - - - getTraderClients(trader_id): returns Client[]
- * - - - getClients(name, address): returns Client[]
+ * - - - getAllClients(): returns Client[] - DONE
+ * - - - getTraderClients(trader_id): returns Client[] - DONE
+ * - - - getSearchClients(first_name, last_name, street_address, city, state, zip): returns Client[]
  * - - - getClient(id): returns Client - DONE
  *
  * - Transaction
@@ -58,7 +58,7 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  * - - Mutations:
  * - - -
  * - - Queries:
- * - - - getClientsFromAddresses(street_address, city, state, zip): returns client_id[]
+ * - - - (NOT NEEDED) getClientsFromAddresses(street_address, city, state, zip): returns client_id[]
  *
  */
 
@@ -68,6 +68,8 @@ const RootQuery = new GraphQLObjectType({
     getUser: GET_USER,
     getClient: GET_CLIENT,
     getAllClients: GET_ALL_CLIENTS,
+    getTraderClients: GET_TRADER_CLIENTS,
+    getSearchClients: GET_SEARCH_CLIENTS,
   },
 });
 
