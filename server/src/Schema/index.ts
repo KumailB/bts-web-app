@@ -25,7 +25,7 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  * - - - getAllClients(): returns Client[]
  * - - - getTraderClients(trader_id): returns Client[]
  * - - - getClients(name, address): returns Client[]
- * - - - getClient(id): returns Client
+ * - - - getClient(id): returns Client - DONE
  *
  * - Transaction
  * - - Mutations:
@@ -44,9 +44,9 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  *
  * - Manager
  * - - Mutations:
- * - - - getManager(id): returns Manager
+ * - - - 
  * - - Queries:
- * - - -
+ * - - - getManager(id): returns Manager
  *
  * - Level
  * - - Mutations:
