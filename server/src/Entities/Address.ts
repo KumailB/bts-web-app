@@ -22,5 +22,5 @@ export class Address extends BaseEntity {
   state!: string;
 
   @Column()
-  zip!: string;
+  zip_code!: string;
 }
