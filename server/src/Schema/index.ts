@@ -8,11 +8,20 @@ import {
   GET_TRADER_CLIENTS,
 } from "./Queries/Client";
 import { UPDATE_CLIENT } from "./Mutations/Client";
+import {
+  GET_ALL_TRANSACTION,
+  GET_CLIENT_TRANSACTIONS,
+  GET_MONTHLY_TRANSACTION_TOTAL,
+  GET_PENDING_TRANSACTIONS,
+  GET_TRANSACTIONS_DURING,
+} from "./Queries/Transaction";
+import { CREATE_TRANSACTION } from "./Mutations/Transaction";
+import { GET_COMMISSION_RATE } from "./Queries/Level";
 
 /**
  * Possible issues with schema:
- *  - Extensions of entities
  *  - Mismatch between entities and type definitions
+ *  - Entities don't have non null property
  */
 
 /**
@@ -30,35 +39,37 @@ import { UPDATE_CLIENT } from "./Mutations/Client";
  * - - - getAllClients(): returns Client[] - DONE
  * - - - getTraderClients(trader_id): returns Client[] - DONE
  * - - - getSearchClients(first_name, last_name, street_address, city, state, zip): returns Client[] - DONE
- * - - - getClient(id): returns Client - DONE
+ * - - - getClient(id): returns Client - DONE (Also runs monthly check)
  *
  * - Transaction
  * - - Mutations:
- * - - - updateTransaction(Transaction): returns None
- * - - - createTransaction(Transaction): returns None
+ * - - - updateTransaction(id, status): returns None - DONE
+ * - - - createTransaction(commission_payment_type, value, date, commision_paid,
+ *                        trader_id, client_id, order_type, conv_rate): returns None - DONE
  * - - Queries:
- * - - - getTransactions(trader_id): returns Transaction[]
- * - - - getClientMonthlyTransactions(client_id): returns Transaction[]
- * - - - getClientTransactions(client_id): returns Transaction[]
- * - - - getAllTransactions(): returns Transaction[]
+ * - - - getPendingTransactions(trader_id): returns Transaction[] - DONE
+ * - - - (NOT NEEDED) getLastMonthTranasactionTotal(client_id): returns Transaction[]
+ * - - - getClientTransactions(client_id): returns Transaction[] - DONE
+ * - - - getTransactionsDuring(date_since, date_till): returns Transaction[] - DONE
+ * - - - getAllTransactions(): returns Transaction[] - DONE
  *
  * - Trader
  * - - Mutations:
  * - - -
  * - - Queries:
- * - - - getTrader(id): returns Trader
+ * - - - (NOT NEEDED) getTrader(id): returns Trader
  *
  * - Manager
  * - - Mutations:
  * - - -
  * - - Queries:
- * - - - getManager(id): returns Manager
+ * - - - (NOT NEEDED) getManager(id): returns Manager
  *
  * - Level
  * - - Mutations:
  * - - -
  * - - Queries:
- * - - - getCommissionRate(classification): returns commission_rate
+ * - - - getCommissionRate(classification): returns commission_rate - DONE
  *
  * - Address
  * - - Mutations:
@@ -76,6 +87,12 @@ const RootQuery = new GraphQLObjectType({
     getAllClients: GET_ALL_CLIENTS,
     getTraderClients: GET_TRADER_CLIENTS,
     getSearchClients: GET_SEARCH_CLIENTS,
+    getAllTransactions: GET_ALL_TRANSACTION,
+    getClientTransactions: GET_CLIENT_TRANSACTIONS,
+    getTransactionsDuring: GET_TRANSACTIONS_DURING,
+    getCommissionRate: GET_COMMISSION_RATE,
+    getPendingTransactions: GET_PENDING_TRANSACTIONS,
+    getMonthlyTransactionTotal: GET_MONTHLY_TRANSACTION_TOTAL,
   },
 });
 
@@ -84,6 +101,7 @@ const Mutation = new GraphQLObjectType({
   fields: {
     createUser: CREATE_USER,
     updateClient: UPDATE_CLIENT,
+    createTransaction: CREATE_TRANSACTION,
   },
 });
 
