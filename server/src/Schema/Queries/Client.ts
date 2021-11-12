@@ -7,6 +7,7 @@ import { UserType } from "../TypeDefs/User";
 import { SqlInMemory } from "typeorm/driver/SqlInMemory";
 import { Address } from "../../Entities/Address";
 import { EntityManager, getManager, Like } from "typeorm";
+import moment from "moment";
 
 export const GET_CLIENT = {
   type: ClientType,
@@ -16,6 +17,26 @@ export const GET_CLIENT = {
   async resolve(parent: any, args: any) {
     const { id } = args;
     const client = await Client.findOne({ id: id });
+    if (client){
+      const lastCheck: string = client.last_update;
+      const timeNow = new Date();
+      if ((timeNow.getMonth())-((new Date(lastCheck)).getMonth()) != 0){
+        const year = timeNow.getFullYear();
+        const lastMonth = timeNow.getMonth();
+        const rawQuery: string =
+        "SELECT SUM(`Transaction`.`value` / `Transaction`.`conv_rate`) AS `last_month_total` FROM `transaction` `Transaction` WHERE ( `Transaction`.`status` = 'Completed' AND `Transaction`.`client_id` = "+id+" AND YEAR(`Transaction`.`date`) = "+year+" AND MONTH(`Transaction`.`date`) = "+lastMonth+" )";
+        const entityManager = getManager();
+        const lastMonthTotalArr = await entityManager.query(rawQuery);
+        console.log(lastMonthTotalArr);
+        if (lastMonthTotalArr[0].last_month_total && lastMonthTotalArr[0].last_month_total > 100000){
+          await Client.update({id: id}, {level: 2, last_update: (moment(Date.now()).format("yyyy-MM-DD"))});
+        }
+        else{
+          await Client.update({id: id}, {level: 1, last_update: (moment(Date.now()).format("yyyy-MM-DD"))});
+        }
+        return (await Client.findOne({ id: id }));
+      }
+    }
     return client;
   },
 };
