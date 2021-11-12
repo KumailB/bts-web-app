@@ -1,10 +1,4 @@
-import {
-  GraphQLObjectType,
-  GraphQLID,
-  GraphQLString,
-  GraphQLFloat,
-  GraphQLInt,
-} from "graphql";
+import { GraphQLObjectType, GraphQLFloat, GraphQLInt } from "graphql";
 
 export const LevelType = new GraphQLObjectType({
   name: "Level",

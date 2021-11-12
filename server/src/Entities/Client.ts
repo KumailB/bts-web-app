@@ -1,17 +1,9 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { User } from "./User";
+import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
-export class Client extends BaseEntity{
+export class Client extends BaseEntity {
   @PrimaryColumn()
-  id!: number
+  id!: number;
 
   @Column()
   first_name!: string;
@@ -36,7 +28,7 @@ export class Client extends BaseEntity{
 
   @Column({ type: "date", default: "0000-00-00" })
   last_update!: string;
-  
+
   @Column()
   trader_id!: number;
 }

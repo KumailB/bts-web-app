@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLID } from "graphql";
 
 export const ManagerType = new GraphQLObjectType({
   name: "Manager",

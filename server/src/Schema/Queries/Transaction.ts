@@ -7,7 +7,6 @@ import {
 } from "graphql";
 import { TransactionType } from "../TypeDefs/Transaction";
 import { Transaction } from "../../Entities/Transaction";
-import { resolveModuleName } from "typescript";
 import { getManager } from "typeorm";
 import moment from "moment";
 

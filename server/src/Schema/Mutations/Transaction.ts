@@ -1,8 +1,7 @@
-import { GraphQLFloat, GraphQLID, GraphQLString, valueFromAST } from "graphql";
-import { QueryPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { GraphQLFloat, GraphQLID, GraphQLString } from "graphql";
 import { Transaction } from "../../Entities/Transaction";
 import { TransactionType } from "../TypeDefs/Transaction";
-import moment from 'moment';
+import moment from "moment";
 
 export const UPDATE_TRANSACTION = {
   type: TransactionType,
@@ -30,7 +29,7 @@ export const CREATE_TRANSACTION = {
     conv_rate: { type: GraphQLFloat },
   },
   async resolve(parent: any, args: any) {
-    args.date = (moment(Date.now()).format("yyyy-MM-DD HH:mm:ss"))
+    args.date = moment(Date.now()).format("yyyy-MM-DD HH:mm:ss");
     args.status = "Pending";
     await Transaction.insert(args);
     return args;

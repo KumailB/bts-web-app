@@ -2,7 +2,6 @@ import {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
-  GraphQLFloat,
 } from "graphql";
 
 export const TraderType = new GraphQLObjectType({
