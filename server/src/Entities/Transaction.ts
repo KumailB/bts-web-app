@@ -9,7 +9,7 @@ import {
 
 @Entity()
 export class Transaction extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
