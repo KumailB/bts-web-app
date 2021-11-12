@@ -2,18 +2,18 @@ import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Address extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({ nullable: false })
   client_id!: number;
 
-  @Column()
+  @Column({ nullable: false })
   street_address!: string;
 
-  @Column()
+  @Column({ nullable: false })
   city!: string;
 
-  @Column()
+  @Column({ nullable: false })
   state!: string;
 
-  @Column()
+  @Column({ nullable: false })
   zip_code!: string;
 }

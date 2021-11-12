@@ -11,22 +11,22 @@ export class Transaction extends BaseEntity {
   @Column({ nullable: false, type: "float", default: 0.0 })
   value!: number;
 
-  @Column({ type: "timestamp" })
+  @Column({ nullable: false, type: "timestamp" })
   date!: Date;
 
   @Column({ nullable: false, type: "float", default: 0.0 })
   commission_paid!: number;
 
-  @Column()
+  @Column({ nullable: false, default: "Pending" })
   status!: string;
 
-  @Column()
+  @Column({ nullable: false, type: "int" })
   trader_id!: number;
 
-  @Column()
+  @Column({ nullable: false, type: "int" })
   client_id!: number;
 
-  @Column()
+  @Column({ nullable: false })
   order_type!: string;
 
   @Column({ nullable: false, type: "float" })
