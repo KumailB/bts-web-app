@@ -6,12 +6,6 @@ export class Client extends BaseEntity {
   id!: number;
 
   @Column()
-  first_name!: string;
-
-  @Column()
-  last_name!: string;
-
-  @Column()
   phone_num!: string;
 
   @Column()

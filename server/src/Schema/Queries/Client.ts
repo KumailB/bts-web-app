@@ -109,10 +109,14 @@ export const GET_SEARCH_CLIENTS = {
     addressIDs.forEach((entry: { Address_client_id: number }) =>
       clientIDs.push(entry.Address_client_id)
     );
-    const clients = await Client.findByIds(clientIDs, {
+    const users = await User.findByIds(clientIDs, {
       first_name: Like(`%${first_name}%`),
       last_name: Like(`%${last_name}%`),
     });
-    return clients;
+    clientIDs = [];
+    console.log(users);
+    users.forEach((entry: { id: number }) => clientIDs.push(entry.id));
+
+    return await Client.findByIds(clientIDs);
   },
 };

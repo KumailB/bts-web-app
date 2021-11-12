@@ -10,4 +10,13 @@ export class User extends BaseEntity {
 
   @Column()
   pw!: string;
+
+  @Column()
+  first_name!: string;
+
+  @Column()
+  last_name!: string;
+
+  @Column()
+  user_type!: string;
 }
