@@ -31,6 +31,9 @@ export class Client extends BaseEntity{
   @Column({ nullable: false, type: "float", default: 0.0 })
   bitcoin!: number;
 
+  @Column()
+  level!: number;
+
   @Column({ type: "date", default: "0000-00-00" })
   last_update!: string;
   
