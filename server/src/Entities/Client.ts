@@ -15,7 +15,7 @@ export class Client extends BaseEntity {
   usd!: number;
 
   @Column({ nullable: false, type: "float", default: 0.0 })
-  bitcoin!: number;
+  btc!: number;
 
   @Column({ nullable: false, type: "int", default: 0 })
   level!: number;

@@ -8,13 +8,13 @@ export const UPDATE_CLIENT = {
   args: {
     id: { type: GraphQLID },
     usd: { type: GraphQLFloat },
-    bitcoin: { type: GraphQLFloat },
+    btc: { type: GraphQLFloat },
   },
   async resolve(parent: any, args: any) {
-    const { id, usd, bitcoin } = args;
+    const { id, usd, btc } = args;
     let updateArgs: QueryPartialEntity<Client> = {};
     if (usd) updateArgs.usd = usd;
-    if (bitcoin) updateArgs.bitcoin = bitcoin;
+    if (btc) updateArgs.btc = btc;
     await Client.update({ id: id }, updateArgs);
     return args;
   },
