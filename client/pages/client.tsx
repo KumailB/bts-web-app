@@ -4,10 +4,25 @@ import Image from 'next/image'
 import Login from '../components/common/Login'
 import { useQuery } from '@apollo/client';
 import { GET_USER } from './api/graphql/Queries';
+import { Client } from '../lib/types';
+import { useRouter } from "next/router";
+import { useEffect } from 'react';
+import { getUser } from './api/login';
 
 
-const Home: NextPage = () => {
 
+interface ClientPageProps{
+  client_email: string;
+  client: Client;
+}
+
+const ClientPage: NextPage<ClientPageProps> = ({client}) => {
+  const router = useRouter();
+  useEffect( () => {
+    if(!client || client.userType != 'Client'){
+      router.push('/');
+    }
+  });
 
   return (
 
@@ -22,8 +37,9 @@ const Home: NextPage = () => {
         <div className="flex gap-x-4 items-center justify-center pt-48 pb-4">
         <img src="/logo.svg" className="h-28"/>
           <h1 className="text-9xl italic font-semibold tracking-wide">
-            BTS
+            CLIENT GANG
           </h1>
+          <h2>Hi {client?.firstName}</h2>
         </div>
         <div className="m-auto w-1/2 max-w-lg bg-yellow-500 p-8 rounded-md">
           
@@ -39,5 +55,30 @@ const Home: NextPage = () => {
 
   )
 }
+export default ClientPage
 
-export default Home
+export async function getServerSideProps(context) {
+  if(Object.keys(context.query).length == 0){
+    return {
+      props: {
+        client: null
+      },
+    };
+  }
+  const user = await getUser(context.query.email);
+  
+  //   [
+  //   'title',
+  //   'date',
+  //   'slug',
+  //   'author',
+  //   'coverImage',
+  //   'excerpt',
+  // ]
+
+  return {
+    props: {
+      client: user,
+    },
+  };
+}
