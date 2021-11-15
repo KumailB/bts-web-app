@@ -15,7 +15,6 @@ export const GET_ALL_TRANSACTION = {
   args: {},
   async resolve(parent: any, args: any) {
     const transactions = await Transaction.find();
-    console.log(transactions);
     return transactions;
   },
 };

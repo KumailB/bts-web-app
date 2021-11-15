@@ -29,7 +29,6 @@ export const GET_CLIENT = {
           " )";
         const entityManager = getManager();
         const lastMonthTotalArr = await entityManager.query(rawQuery);
-        console.log(lastMonthTotalArr);
         if (
           lastMonthTotalArr[0].last_month_total &&
           lastMonthTotalArr[0].last_month_total > 100000
@@ -114,7 +113,6 @@ export const GET_SEARCH_CLIENTS = {
       last_name: Like(`%${last_name}%`),
     });
     clientIDs = [];
-    console.log(users);
     users.forEach((entry: { id: number }) => clientIDs.push(entry.id));
 
     return await Client.findByIds(clientIDs);
