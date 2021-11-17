@@ -65,7 +65,6 @@ export async function getServerSideProps(context: { query: { email?: any; }; }) 
     };
   }
   const user = await getUser(context.query.email);
-  console.log(user);
   
   return {
     props: {
