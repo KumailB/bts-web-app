@@ -56,7 +56,7 @@ const ClientPage: NextPage<ClientPageProps> = ({client}) => {
 }
 export default ClientPage
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: { query: { email?: any; }; }) {
   if(Object.keys(context.query).length == 0){
     return {
       props: {
@@ -65,6 +65,7 @@ export async function getServerSideProps(context) {
     };
   }
   const user = await getUser(context.query.email);
+  console.log(user);
   
   return {
     props: {

@@ -20,7 +20,7 @@ export interface Transaction {
   id: number;
   commissionType: PaymentType;
   value: number;
-  date: Date;
+  date: string;
   commissionPaid: number;
   status: Status;
   traderId: number;
@@ -36,7 +36,7 @@ export interface Client extends User{
   balance: number;
   wallet: number;
   level: Level;
-  lastUpdate: Date;
+  lastUpdate: string;
   traderId: number;
   traderName?: string; 
 }

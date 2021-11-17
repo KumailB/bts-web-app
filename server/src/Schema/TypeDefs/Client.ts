@@ -13,6 +13,7 @@ export const ClientType = new GraphQLObjectType({
     cell_phone_num: { type: GraphQLString },
     usd: { type: GraphQLFloat },
     btc: { type: GraphQLFloat },
+    level: { type: GraphQLID },
     last_update: { type: GraphQLString },
     trader_id: { type: GraphQLID },
   }),

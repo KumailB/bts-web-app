@@ -3,7 +3,7 @@ import { GET_USER, GET_CLIENT } from "./graphql/Queries";
 import graphqlEndpoint from "./graphql/index";
 
 export const tryLogin = async (email: string, password: string): Promise<Client|Trader|Manager|undefined> => {
-  // TODO: Return actual event info
+
   const res = await fetch(graphqlEndpoint, {
       method: 'POST',
       headers: {
@@ -18,7 +18,7 @@ export const tryLogin = async (email: string, password: string): Promise<Client|
     })
     const {data} = await res.json();
     console.log(data);
-    if(!data.getUser){
+    if(!data || !data.getUser){
       return;
     }
     else if(data.getUser.pw != password){
@@ -37,7 +37,7 @@ export const tryLogin = async (email: string, password: string): Promise<Client|
 };
 
 export const getUser = async (email: string): Promise<Client|Trader|Manager|undefined> => {
-  // TODO: Return actual event info
+
   const res = await fetch(graphqlEndpoint, {
       method: 'POST',
       headers: {
@@ -51,8 +51,7 @@ export const getUser = async (email: string): Promise<Client|Trader|Manager|unde
       }),
     })
     const {data} = await res.json();
-    console.log(email);
-    console.log(data);
+
     if(!data.getUser){
       return;
     }
@@ -64,16 +63,32 @@ export const getUser = async (email: string): Promise<Client|Trader|Manager|unde
       lastName: data.getUser.last_name,
       userType: (data.getUser.user_type == 'client') ? 'Client' : ((data.getUser.user_type == 'trader') ? 'Trader' : 'Manager'),
     };
-    console.log(loginUser);
+
     if(loginUser.userType === 'Client'){
       const loginClient = <Client> loginUser;
-      // loginClient.phoneNum = data.getUser.phone_num;
-      // loginClient.cellNum = data.getUser.cell_phone_num;
-      // loginClient.balance = data.getUser.usd;
-      // loginClient.wallet = data.getUser.btc;
-      // loginClient.level = (data.getUser.level == 1) ? 'Silver' : 'Gold';
-      // loginClient.lastUpdate = new Date(data.getUser.last_update);
-      // loginClient.traderId = data.getUser.trader_id;
+      const res = await fetch(graphqlEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: GET_CLIENT,
+          variables: {
+            id: loginUser.id,
+          },
+        }),
+      })
+      const {data} = await res.json();
+      if(!data || !data.getClient){
+        return loginUser;
+      }
+      loginClient.phoneNum = data.getClient.phone_num;
+      loginClient.cellNum = data.getClient.cell_phone_num;
+      loginClient.balance = data.getClient.usd;
+      loginClient.wallet = data.getClient.btc;
+      loginClient.level = (data.getClient.level == 1) ? 'Silver' : 'Gold';
+      loginClient.lastUpdate = data.getClient.last_update;
+      loginClient.traderId = data.getClient.trader_id;
       return loginClient;
     }
     

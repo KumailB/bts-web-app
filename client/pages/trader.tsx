@@ -1,12 +1,25 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import Login from '../components/common/Login'
-import { GET_USER } from './api/graphql/Queries';
+import { Trader } from '../lib/types'
+import { getUser } from './api/login'
 
+interface TraderPageProps{
+  trader_email: string;
+  trader: Trader;
+}
 
-const Home: NextPage = () => {
-
+const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
+  
+  const router = useRouter();
+  useEffect( () => {
+    if(!trader || trader.userType != 'Trader'){
+      router.push('/');
+    }
+  });
 
   return (
 
@@ -21,8 +34,9 @@ const Home: NextPage = () => {
         <div className="flex gap-x-4 items-center justify-center pt-48 pb-4">
         <img src="/logo.svg" className="h-28"/>
           <h1 className="text-9xl italic font-semibold tracking-wide">
-            BTS
+            TRADER GANG
           </h1>
+          <h2>Hi {trader?.firstName}</h2>
         </div>
         <div className="m-auto w-1/2 max-w-lg bg-yellow-500 p-8 rounded-md">
           
@@ -39,4 +53,22 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default TraderPage
+
+export async function getServerSideProps(context: { query: { email?: any } }) {
+  if(Object.keys(context.query).length == 0){
+    return {
+      props: {
+        trader: null
+      },
+    };
+  }
+  const user = await getUser(context.query.email);
+  console.log(user);
+  
+  return {
+    props: {
+      trader: user,
+    },
+  };
+}

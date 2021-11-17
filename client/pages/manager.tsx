@@ -1,12 +1,26 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import Login from '../components/common/Login'
-import { GET_USER } from './api/graphql/Queries';
+import { Manager } from '../lib/types'
+import { getUser } from './api/login'
 
 
-const Home: NextPage = () => {
+interface ManagerPageProps{
+  manager_email: string;
+  manager: Manager;
+}
 
+const ManagerPage: NextPage<ManagerPageProps> = ({manager}) => {
+
+  const router = useRouter();
+  useEffect( () => {
+    if(!manager || manager.userType != 'Manager'){
+      router.push('/');
+    }
+  });
 
   return (
 
@@ -21,8 +35,9 @@ const Home: NextPage = () => {
         <div className="flex gap-x-4 items-center justify-center pt-48 pb-4">
         <img src="/logo.svg" className="h-28"/>
           <h1 className="text-9xl italic font-semibold tracking-wide">
-            BTS
+            MANAGER GANG
           </h1>
+          <h2>Hi {manager?.firstName}</h2>
         </div>
         <div className="m-auto w-1/2 max-w-lg bg-yellow-500 p-8 rounded-md">
           
@@ -38,5 +53,22 @@ const Home: NextPage = () => {
 
   )
 }
+export default ManagerPage
 
-export default Home
+export async function getServerSideProps(context: { query: { email?: any } }) {
+  if(Object.keys(context.query).length == 0){
+    return {
+      props: {
+        manager: null
+      },
+    };
+  }
+  const user = await getUser(context.query.email);
+  console.log(user);
+  
+  return {
+    props: {
+      manager: user,
+    },
+  };
+}
