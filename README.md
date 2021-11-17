@@ -2,6 +2,14 @@
 A web-based bitcoin transaction system to help traders swiftly buy and sell bitcoin. 
 
 ## Quick Start
+### Pre-requisties
+ - ```node.js```
+ - ```npm```
+ - ```ts-node```
+
+You can install ts-node using the following command:
+```npm i -g ts-node```
+
 
 ### Setting up the server
 In-order to run the server locally, you will have to create a file `.env` in `server` subfolder.
