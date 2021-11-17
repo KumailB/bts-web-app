@@ -17,12 +17,18 @@ export default function Login() {
     
     const user = await tryLogin(inputEmail.current.value, inputPassword.current.value);
 
+
     if (user?.userType === 'Client')
       router.push('/client?email='+inputEmail.current.value);
     else if(user?.userType === 'Trader')
       router.push('/trader?email='+inputEmail.current.value);
     else if(user?.userType === 'Manager')
       router.push('/manager?email='+inputEmail.current.value);
+    else{
+      inputEmail.current.value = '';
+      inputPassword.current.value = '';
+      setMessage('The email or password you have entered is incorrect!');
+    }
     // 3. Send a request to our API with the user's email address.
 
     // if (true) {
@@ -33,9 +39,7 @@ export default function Login() {
     // }
 
     // 5. Clear the input value and show a success message.
-    inputEmail.current.value = '';
-    inputPassword.current.value = '';
-    setMessage('The email or password you have entered is incorrect!');
+    
   };
 
   return (
@@ -76,7 +80,7 @@ export default function Login() {
             </button>
 
             <div className="text-lg font-bold py-4 text-red-600 text-center">
-              {message ? message : " "}
+              {message ? message : null}
             </div>
           </div>
           

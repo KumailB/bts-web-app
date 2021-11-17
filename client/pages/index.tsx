@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Login from '../components/common/Login'
+import Login from '../components/login/Login'
 import { GET_USER } from './api/graphql/Queries';
 
 

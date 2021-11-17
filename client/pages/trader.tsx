@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import Login from '../components/common/Login'
+import Login from '../components/login/Login'
 import { Trader } from '../lib/types'
 import { getUser } from './api/login'
 

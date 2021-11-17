@@ -17,6 +17,7 @@ import {
 } from "./Queries/Transaction";
 import { CREATE_TRANSACTION } from "./Mutations/Transaction";
 import { GET_COMMISSION_RATE } from "./Queries/Level";
+import { GET_ADDRESS } from "./Queries/Address";
 
 /**
  * Possible issues with schema:
@@ -75,6 +76,7 @@ import { GET_COMMISSION_RATE } from "./Queries/Level";
  * - - Mutations:
  * - - -
  * - - Queries:
+ * - - - getAddress(id): returns Address
  * - - - (NOT NEEDED) getClientsFromAddresses(street_address, city, state, zip): returns client_id[]
  *
  */
@@ -84,6 +86,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     getUser: GET_USER,
     getClient: GET_CLIENT,
+    getAddress: GET_ADDRESS,
     getAllClients: GET_ALL_CLIENTS,
     getTraderClients: GET_TRADER_CLIENTS,
     getSearchClients: GET_SEARCH_CLIENTS,

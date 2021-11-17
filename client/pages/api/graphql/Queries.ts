@@ -24,3 +24,14 @@ export const GET_CLIENT = `
     }
   }
 `;
+
+export const GET_ADDRESS = `
+  query getAddress($client_id: ID!) {
+    getAddress(client_id: $client_id){
+      street_address
+      city
+      state
+      zip_code
+    }
+  }
+`;

@@ -1,5 +1,5 @@
 import { User, Client, Trader, Manager } from "../../lib/types";
-import { GET_USER, GET_CLIENT } from "./graphql/Queries";
+import { GET_USER, GET_CLIENT, GET_ADDRESS } from "./graphql/Queries";
 import graphqlEndpoint from "./graphql/index";
 
 export const tryLogin = async (email: string, password: string): Promise<Client|Trader|Manager|undefined> => {
@@ -89,6 +89,31 @@ export const getUser = async (email: string): Promise<Client|Trader|Manager|unde
       loginClient.level = (data.getClient.level == 1) ? 'Silver' : 'Gold';
       loginClient.lastUpdate = data.getClient.last_update;
       loginClient.traderId = data.getClient.trader_id;
+
+      const addressRes = await fetch(graphqlEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: GET_ADDRESS,
+          variables: {
+            client_id: loginUser.id,
+          },
+        }),
+      })
+      const adRes  = await addressRes.json();
+      if(!adRes.data || !adRes.data.getAddress){
+        return loginUser;
+      }
+      const address = {
+        street: adRes.data.getAddress.street_address,
+        city: adRes.data.getAddress.city,
+        state: adRes.data.getAddress.state,
+        zip: adRes.data.getAddress.zip_code,
+      }
+      loginClient.address = address;
+
       return loginClient;
     }
     

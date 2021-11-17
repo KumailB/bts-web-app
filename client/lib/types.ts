@@ -8,6 +8,12 @@ export type Level = 'Silver' | 'Gold';
 
 export type UserType = 'Client' | 'Trader' | 'Manager';
 
+export interface Address {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+}
 export interface User {
   id: number;
   email: string;
@@ -31,6 +37,7 @@ export interface Transaction {
 }
 
 export interface Client extends User{
+  address: Address;
   phoneNum?: string;
   cellNum?: string;
   balance: number;
