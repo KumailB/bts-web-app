@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Login from '../components/common/Login'
-import { useQuery } from '@apollo/client';
 import { GET_USER } from './api/graphql/Queries';
 import { Client } from '../lib/types';
 import { useRouter } from "next/router";
@@ -67,15 +66,6 @@ export async function getServerSideProps(context) {
   }
   const user = await getUser(context.query.email);
   
-  //   [
-  //   'title',
-  //   'date',
-  //   'slug',
-  //   'author',
-  //   'coverImage',
-  //   'excerpt',
-  // ]
-
   return {
     props: {
       client: user,

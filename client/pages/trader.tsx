@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Login from '../components/common/Login'
-import { useQuery } from '@apollo/client';
 import { GET_USER } from './api/graphql/Queries';
 
 

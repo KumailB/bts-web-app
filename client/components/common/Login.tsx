@@ -1,15 +1,9 @@
 import { useRef, useState } from "react";
 import { GET_USER } from "../../pages/api/graphql/Queries";
 import { getUser, tryLogin } from "../../pages/api/login";
-import { useLazyQuery, useMutation, useQuery, ApolloClient, InMemoryCache } from "@apollo/client";
 import { useRouter } from "next/router";
 
 export default function Login() {
-  // 1. Create a reference to the input so we can fetch/clear it's value.
-  // const client = new ApolloClient({
-  //   uri: "http://"+process.env.SERVER_HOST+":"+process.env.SERVER_PORT+"/graphql",
-  //   cache: new InMemoryCache(),
-  //   })
 
   const inputEmail = useRef(null);
   const inputPassword = useRef(null);
