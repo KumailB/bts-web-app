@@ -10,6 +10,15 @@ export const GET_USER = `
   }
 `;
 
+export const GET_USER_NAME = `
+  query getUserName($id: ID!) {
+    getUserName(id: $id){
+      first_name
+      last_name
+    }
+  }
+`;
+
 export const GET_CLIENT = `
   query getClient($id: ID!) {
     getClient(id: $id){
@@ -32,6 +41,22 @@ export const GET_ADDRESS = `
       city
       state
       zip_code
+    }
+  }
+`;
+
+export const GET_PENDING_TRANSACTIONS = `
+  query getPendingTransactions($trader_id: ID!) {
+    getPendingTransactions(trader_id: $trader_id){
+      id
+      value
+      date
+      commission_paid
+      commission_payment_type
+      status
+      trader_id
+      client_id
+      order_type
     }
   }
 `;

@@ -1,5 +1,5 @@
 import { User, Client, Trader, Manager } from "../../lib/types";
-import { GET_USER, GET_CLIENT, GET_ADDRESS } from "./graphql/Queries";
+import { GET_USER, GET_CLIENT, GET_ADDRESS, GET_USER_NAME } from "./graphql/Queries";
 import graphqlEndpoint from "./graphql/index";
 
 export const tryLogin = async (email: string, password: string): Promise<Client|Trader|Manager|undefined> => {
@@ -118,4 +118,30 @@ export const getUser = async (email: string): Promise<Client|Trader|Manager|unde
     }
     
     return loginUser;
+};
+
+export const getUserName = async (id: number): Promise<Object|undefined> => {
+
+  const res = await fetch(graphqlEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: GET_USER_NAME,
+        variables: {
+          id: id,
+        },
+      }),
+    })
+    const {data} = await res.json();
+    if(!data || !data.getUserName){
+      return;
+    }
+    
+    const userName = {
+      firstName: data.getUserName.first_name,
+      lastName: data.getUserName.last_name,
+    };
+    return userName;
 };

@@ -11,3 +11,11 @@ export const UserType = new GraphQLObjectType({
     pw: { type: GraphQLString },
   }),
 });
+
+export const UserNameType = new GraphQLObjectType({
+  name: "UserName",
+  fields: () => ({
+    first_name: {type: GraphQLString},
+    last_name: {type: GraphQLString},
+  }),
+});

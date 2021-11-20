@@ -19,7 +19,7 @@ export default function Order({}: ReportProps) {
         <div className="py-8 text-5xl font-light ">Report Generator</div>
         <form onSubmit={generate}>
             
-            <div className="grid grid-rows-1 grid-flow-col gap-16 mb-12">
+            <div className="flex flex-wrap gap-x-36 gap-y-6 mb-12">
                 <div className="flex items-center gap-6">
                     <div className="text-2xl font-light ">From</div>
                     <input

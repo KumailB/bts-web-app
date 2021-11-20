@@ -1,5 +1,5 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import { GET_USER } from "./Queries/User";
+import { GET_USER, GET_USER_NAME } from "./Queries/User";
 import { CREATE_USER } from "./Mutations/User";
 import {
   GET_ALL_CLIENTS,
@@ -33,6 +33,7 @@ import { GET_ADDRESS } from "./Queries/Address";
  * - - -
  * - - Queries:
  * - - - getUser(email): returns User - DONE
+ * - - - getUserName(id): returns first and last name - DONE
  * - Client
  * - - Mutations:
  * - - - updateClient(Client): returns None - DONE
@@ -87,6 +88,7 @@ const RootQuery = new GraphQLObjectType({
     getUser: GET_USER,
     getClient: GET_CLIENT,
     getAddress: GET_ADDRESS,
+    getUserName: GET_USER_NAME,
     getAllClients: GET_ALL_CLIENTS,
     getTraderClients: GET_TRADER_CLIENTS,
     getSearchClients: GET_SEARCH_CLIENTS,
