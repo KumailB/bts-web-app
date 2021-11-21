@@ -13,11 +13,11 @@ export default function Pending({ transaction }: PendingItemProps) {
 
     e.preventDefault();
     
-    router.push('/');
+    router.reload();
   }
   const cancel = async (e : any) => {
     e.preventDefault();
-    router.push('/');
+    router.reload();
   }
 
   return (

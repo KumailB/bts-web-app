@@ -25,12 +25,6 @@ interface ClientPageProps{
 }
 
 const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
-  const router = useRouter();
-  useEffect( () => {
-    if(!client || client.userType != 'Client'){
-      router.push('/');
-    }
-  });
 
   return (
     
@@ -70,16 +64,18 @@ export default ClientPage
 export async function getServerSideProps(context: { query: { email?: any; }; }) {
   if(Object.keys(context.query).length == 0){
     return {
-      props: {
-        client: null
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     };
   }
   const user = await getUser(context.query.email);
   if(!user || user.userType != "Client"){
     return {
-      props: {
-        client: null
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     };
   }

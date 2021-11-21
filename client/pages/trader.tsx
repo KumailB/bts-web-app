@@ -16,20 +16,13 @@ interface TraderPageProps{
 
 const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
   
-  const router = useRouter();
-  useEffect( () => {
-    if(!trader || trader.userType != 'Trader'){
-      router.push('/');
-    }
-  });
-
   return (
 
     <div className="static bg-white text-white">
     <SiteHeader name={trader.firstName}></SiteHeader>
     <Head>
       <title>Trader Dashboard</title>
-      <meta name="description" content="Dashboard for BTS Manager" />
+      <meta name="description" content="Dashboard for BTS Trader" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
@@ -48,12 +41,23 @@ export default TraderPage
 export async function getServerSideProps(context: { query: { email?: any } }) {
   if(Object.keys(context.query).length == 0){
     return {
-      props: {
-        trader: null
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     };
   }
   const user = await getUser(context.query.email);
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
 
   return {
     props: {
