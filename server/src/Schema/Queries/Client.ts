@@ -5,7 +5,7 @@ import { User } from "../../Entities/User";
 import { getManager, Like } from "typeorm";
 import moment from "moment";
 
-export const GET_CLIENT = {
+export const GET_CLIENT_LOGIN = {
   type: ClientType,
   args: {
     id: { type: GraphQLID },
@@ -46,6 +46,18 @@ export const GET_CLIENT = {
         return await Client.findOne({ id: id });
       }
     }
+    return client;
+  },
+};
+
+export const GET_CLIENT = {
+  type: ClientType,
+  args: {
+    id: { type: GraphQLID },
+  },
+  async resolve(parent: any, args: any) {
+    const { id } = args;
+    const client = await Client.findOne({ id: id });
     return client;
   },
 };

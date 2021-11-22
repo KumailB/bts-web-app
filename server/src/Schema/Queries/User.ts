@@ -14,14 +14,14 @@ export const GET_USER = {
   },
 };
 
-export const GET_USER_NAME = {
-  type: UserNameType,
+export const GET_USER_FROM_ID = {
+  type: UserType,
   args: {
     id: { type: GraphQLID },
   },
   async resolve(parent: any, args: any) {
     const { id } = args;
     const user = await User.findOne({ id: id });
-    return {first_name: user?.first_name, last_name: user?.last_name};
+    return user;
   },
 };

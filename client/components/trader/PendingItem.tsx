@@ -22,7 +22,7 @@ export default function Pending({ transaction }: PendingItemProps) {
 
   return (
   <div className="flex gap-auto justify-between bg-blue-600 drop-shadow-2xl text-gray-100 text-3xl mb-4 p-4 font-light  rounded-lg">
-    <div className="w-1/5 break-all">{transaction.clientName}</div>
+    <div className="w-1/5 break-all">{transaction.client.firstName+ " "+ transaction.client.lastName}</div>
     <div className="w-1/6 break-all text-right">{transaction.value.toFixed(5)}</div>
 
     <div className="w-1/5 break-all text-right">{moment(Number(transaction.date)).format("D MMM YYYY")}</div>

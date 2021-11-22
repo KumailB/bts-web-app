@@ -67,7 +67,6 @@ export const getServerSideProps = withIronSession(
     
     const userData = await req.session.get("user");
 
-    console.log(userData);
     if (!userData) {
       res.statusCode = 404;
       //res.end();

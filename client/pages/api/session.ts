@@ -11,11 +11,9 @@ export default withIronSession(
       const { email, password } = req.body;
 
       const user = await tryLogin(email, password);
-      console.log(user);
       if (user) {
         await req.session.set("user", { user });
         await req.session.save();
-        console.log(req.session);
         return user.userType != "Client" ? (user.userType != "Trader" ? res.status(202).send("") : res.status(201).send("")) : res.status(200).send("");
       }
 

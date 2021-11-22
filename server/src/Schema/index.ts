@@ -1,9 +1,10 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import { GET_USER, GET_USER_NAME } from "./Queries/User";
+import { GET_USER, GET_USER_FROM_ID } from "./Queries/User";
 import { CREATE_USER } from "./Mutations/User";
 import {
   GET_ALL_CLIENTS,
   GET_CLIENT,
+  GET_CLIENT_LOGIN,
   GET_SEARCH_CLIENTS,
   GET_TRADER_CLIENTS,
 } from "./Queries/Client";
@@ -41,7 +42,8 @@ import { GET_ADDRESS } from "./Queries/Address";
  * - - - getAllClients(): returns Client[] - DONE
  * - - - getTraderClients(trader_id): returns Client[] - DONE
  * - - - getSearchClients(first_name, last_name, street_address, city, state, zip): returns Client[] - DONE
- * - - - getClient(id): returns Client - DONE (Also runs monthly check)
+ * - - - getClient(id): returns Client - DONE 
+ * - - - getClientLogin(id): returns Client - DONE (Also runs monthly check)
  *
  * - Transaction
  * - - Mutations:
@@ -88,8 +90,9 @@ const RootQuery = new GraphQLObjectType({
     getUser: GET_USER,
     getClient: GET_CLIENT,
     getAddress: GET_ADDRESS,
-    getUserName: GET_USER_NAME,
     getAllClients: GET_ALL_CLIENTS,
+    getUserFromId: GET_USER_FROM_ID,
+    getClientLogin: GET_CLIENT_LOGIN,
     getTraderClients: GET_TRADER_CLIENTS,
     getSearchClients: GET_SEARCH_CLIENTS,
     getAllTransactions: GET_ALL_TRANSACTION,

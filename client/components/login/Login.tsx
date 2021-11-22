@@ -23,8 +23,6 @@ export default function Login() {
       body: JSON.stringify({email, password })
     });
 
-    console.log(response);
-
     if (response.status == 200)
       router.push('/client');
     else if(response.status == 201)

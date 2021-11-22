@@ -32,8 +32,7 @@ export interface Transaction {
   traderId: number;
   clientId: number;
   orderType: OrderType;
-  traderName?: string;
-  clientName?: string;
+  client: Client;
 }
 
 export interface Client extends User{

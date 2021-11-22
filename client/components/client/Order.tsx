@@ -23,7 +23,6 @@ export default function Order({client, rate, levelRate}: OrderProps) {
       // BUY ORDER
       
       if(usd && (client.balance < Number(amount)*rate*(1+levelRate))){  // Paying com with USD
-        console.log("Here");
         setMessage("Cannot place order. Insufficient funds!");
         return;
       }
