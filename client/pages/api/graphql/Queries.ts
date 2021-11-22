@@ -81,3 +81,19 @@ export const GET_PENDING_TRANSACTIONS = gql`
     }
   }
 `;
+
+export const GET_REPORT_DURING = gql`
+  query getReportDuring($from: String!, $till: String!) {
+    getReportDuring(from: $from, till: $till){
+			completed
+      pending
+      cancelled
+      sales
+      purchases
+      btc_bought
+      btc_sold
+      usd_commission
+      btc_commission
+    }
+  }
+`;

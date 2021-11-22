@@ -9,6 +9,7 @@ import { TransactionType } from "../TypeDefs/Transaction";
 import { Transaction } from "../../Entities/Transaction";
 import { getManager } from "typeorm";
 import moment from "moment";
+import { ReportType } from "../TypeDefs/Report";
 
 export const GET_ALL_TRANSACTION = {
   type: new GraphQLList(TransactionType),
@@ -119,5 +120,91 @@ export const GET_TRANSACTIONS_DURING = {
       })
     );
     return transactionList;
+  },
+};
+
+export const GET_REPORT_DURING = {
+  type: ReportType,
+  args: {
+    from: { type: GraphQLString },
+    till: { type: GraphQLString },
+  },
+  async resolve(parent: any, args: any) {
+    const { from, till } = args;
+    let fromDate = "";
+    let tillDate = "";
+    if (from && from != "") {
+      const date = moment(new Date(from)).format("yyyy-MM-DD HH:mm:ss");
+      fromDate = " AND `Transaction`.`date` >= '" + date + "'";
+    }
+    if (till && till != "") {
+      const date = moment(new Date(till))
+        .add(1, "days")
+        .format("yyyy-MM-DD HH:mm:ss");
+      tillDate = " AND `Transaction`.`date` < '" + date + "'";
+    }
+
+    const compQuery: string =
+      "SELECT COUNT(*) as `completed` FROM `transaction` `Transaction` WHERE ( `Transaction`.`status` = 'Completed'" +
+      fromDate +
+      tillDate +
+      " )";
+
+    const pendQuery: string =
+      "SELECT COUNT(*) as `pending` FROM `transaction` `Transaction` WHERE ( `Transaction`.`status` = 'Pending'" +
+      fromDate +
+      tillDate +
+      " )";
+
+    const cancQuery: string =
+      "SELECT COUNT(*) as `cancelled` FROM `transaction` `Transaction` WHERE ( `Transaction`.`status` = 'Cancelled'" +
+      fromDate +
+      tillDate +
+      " )";
+
+    const boughtQuery: string =
+      "SELECT SUM(`value`) as `btc_bought`, SUM(`value` * `conv_rate`) as `sales` FROM `transaction` `Transaction` WHERE ( `Transaction`.`order_type` = 'BUY' AND `Transaction`.`status` = 'Completed'" +
+      fromDate +
+      tillDate +
+      " )";
+
+    const soldQuery: string =
+      "SELECT SUM(`value`) as `btc_sold`, SUM(`value` * `conv_rate`) as `purchases` FROM `transaction` `Transaction` WHERE ( `Transaction`.`order_type` = 'SELL' AND `Transaction`.`status` = 'Completed'" +
+      fromDate +
+      tillDate +
+      " )";
+
+      const usdQuery: string =
+      "SELECT SUM(`commission_paid`) as `usd` FROM `transaction` `Transaction` WHERE ( `Transaction`.`commission_payment_type` = 'USD' AND `Transaction`.`status` = 'Completed'" +
+      fromDate +
+      tillDate +
+      " )";
+
+      const btcQuery: string =
+      "SELECT SUM(`commission_paid`) as `btc` FROM `transaction` `Transaction` WHERE ( `Transaction`.`commission_payment_type` = 'BTC' AND `Transaction`.`status` = 'Completed'" +
+      fromDate +
+      tillDate +
+      " )";
+    
+    const entityManager = getManager();
+    const comp = await entityManager.query(compQuery);
+    const pend = await entityManager.query(pendQuery);
+    const canc = await entityManager.query(cancQuery);
+    const bought = await entityManager.query(boughtQuery);
+    const sold = await entityManager.query(soldQuery);
+    const usd = await entityManager.query(usdQuery);
+    const btc = await entityManager.query(btcQuery);
+
+    return {
+      completed: comp[0].completed,
+      pending: pend[0].pending,
+      cancelled: canc[0].cancelled,
+      btc_bought: bought[0].btc_bought,
+      sales: bought[0].sales,
+      btc_sold: sold[0].btc_sold,
+      purchases: sold[0].purchases,
+      usd_commission: usd[0].usd,
+      btc_commission: btc[0].btc,
+    }
   },
 };

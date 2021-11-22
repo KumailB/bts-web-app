@@ -14,6 +14,7 @@ import {
   GET_CLIENT_TRANSACTIONS,
   GET_MONTHLY_TRANSACTION_TOTAL,
   GET_PENDING_TRANSACTIONS,
+  GET_REPORT_DURING,
   GET_TRANSACTIONS_DURING,
 } from "./Queries/Transaction";
 import { CREATE_TRANSACTION } from "./Mutations/Transaction";
@@ -93,6 +94,7 @@ const RootQuery = new GraphQLObjectType({
     getAllClients: GET_ALL_CLIENTS,
     getUserFromId: GET_USER_FROM_ID,
     getClientLogin: GET_CLIENT_LOGIN,
+    getReportDuring: GET_REPORT_DURING,
     getTraderClients: GET_TRADER_CLIENTS,
     getSearchClients: GET_SEARCH_CLIENTS,
     getAllTransactions: GET_ALL_TRANSACTION,
