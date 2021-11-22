@@ -13,12 +13,12 @@ import Account from '../components/client/Account';
 import Profile from '../components/client/Profile';
 import { getBtcRate } from './api/btc';
 import { getLevelRate } from './api/level';
+import { withIronSession } from 'next-iron-session';
 
 
 
 
 interface ClientPageProps{
-  client_email: string;
   client: Client;
   rate: number;
   levelRate: number;
@@ -29,7 +29,7 @@ const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
   return (
     
     <div className="static bg-white text-white">
-      <SiteHeader name={client.firstName}></SiteHeader>
+      <SiteHeader user={client}></SiteHeader>
       <Head>
         <title>Client Dashboard</title>
         <meta name="description" content="Dashboard for BTS Client" />
@@ -61,32 +61,40 @@ const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
 }
 export default ClientPage
 
-export async function getServerSideProps(context: { query: { email?: any; }; }) {
-  if(Object.keys(context.query).length == 0){
+export const getServerSideProps = withIronSession(
+  async ({ req, res }) => {
+
+    
+    const userData = await req.session.get("user");
+
+    console.log(userData);
+    if (!userData) {
+      res.statusCode = 404;
+      //res.end();
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+    const {user} = userData;
+    const rate = await getBtcRate();
+    const levelRate = await getLevelRate((user as Client).level == "Silver" ? 1 : 2);
+    
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+      props: {
+        client: user,
+        rate: rate,
+        levelRate: levelRate,
       },
     };
-  }
-  const user = await getUser(context.query.email);
-  if(!user || user.userType != "Client"){
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-  const rate = await getBtcRate();
-  const levelRate = await getLevelRate((user as Client).level == "Silver" ? 1 : 2);
-  
-  return {
-    props: {
-      client: user,
-      rate: rate,
-      levelRate: levelRate,
+  },
+  {
+    cookieName: "BTSCOOKIE",
+    cookieOptions: {
+      secure: process.env.NODE_ENV === "production" ? true : false
     },
-  };
-}
+    password: process.env.NEXT_APPLICATION_SECRET ? process.env.NEXT_APPLICATION_SECRET : "dev",
+  }
+);

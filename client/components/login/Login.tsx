@@ -14,16 +14,24 @@ export default function Login() {
   const login = async (e) => {
     e.preventDefault();
 
+    const email = inputEmail.current.value;
+    const password = inputPassword.current.value;
     
-    const user = await tryLogin(inputEmail.current.value, inputPassword.current.value);
+    const response = await fetch("/api/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({email, password })
+    });
 
+    console.log(response);
 
-    if (user?.userType === 'Client')
-      router.push('/client?email='+inputEmail.current.value);
-    else if(user?.userType === 'Trader')
-      router.push('/trader?email='+inputEmail.current.value);
-    else if(user?.userType === 'Manager')
-      router.push('/manager?email='+inputEmail.current.value);
+    if (response.status == 200)
+      router.push('/client');
+    else if(response.status == 201)
+      router.push('/trader');
+    else if(response.status == 202){
+      router.push('/manager');
+    }
     else{
       inputEmail.current.value = '';
       inputPassword.current.value = '';

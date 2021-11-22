@@ -9,32 +9,25 @@ import { getUser } from './api/login'
 
 import SiteHeader from '../components/common/SiteHeader';
 import Report from '../components/manager/Report';
+import { withIronSession } from 'next-iron-session'
 
 interface ManagerPageProps{
-  manager_email: string;
   manager: Manager;
 }
 
 const ManagerPage: NextPage<ManagerPageProps> = ({manager}) => {
 
-  const router = useRouter();
-  useEffect( () => {
-    if(!manager || manager.userType != 'Manager'){
-      router.push('/');
-    }
-  });
-
   return (
 
     <div className="static bg-white text-white">
-      <SiteHeader name={manager.firstName}></SiteHeader>
+      <SiteHeader user={manager}></SiteHeader>
       <Head>
         <title>Manager Dashboard</title>
         <meta name="description" content="Dashboard for BTS Manager" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen text-black my-12 mx-8 lg:mx-36 xl:mx-56">
+      <main className="min-h-screen text-black my-12 mx-4 lg:mx-36 xl:mx-56">
           <div>
             <Report/>
           </div>         
@@ -45,19 +38,35 @@ const ManagerPage: NextPage<ManagerPageProps> = ({manager}) => {
 }
 export default ManagerPage
 
-export async function getServerSideProps(context: { query: { email?: any } }) {
-  if(Object.keys(context.query).length == 0){
+export const getServerSideProps = withIronSession(
+  async ({ req, res }) => {
+
+    
+    const userData = await req.session.get("user");
+
+    console.log(userData);
+    if (!userData) {
+      res.statusCode = 404;
+      //res.end();
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+    const {user} = userData;
     return {
-      props: {
-        manager: null
-      },
+      props: { 
+        manager: user,
+       }
     };
-  }
-  const user = await getUser(context.query.email);
-  
-  return {
-    props: {
-      manager: user,
+  },
+  {
+    cookieName: "BTSCOOKIE",
+    cookieOptions: {
+      secure: process.env.NODE_ENV === "production" ? true : false
     },
-  };
-}
+    password: process.env.NEXT_APPLICATION_SECRET ? process.env.NEXT_APPLICATION_SECRET : "dev",
+  }
+);

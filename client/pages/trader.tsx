@@ -9,8 +9,8 @@ import { getUser } from './api/login';
 import SiteHeader from '../components/common/SiteHeader';
 import Pending from '../components/trader/Pending';
 import { getPendingTransactions } from './api/trader';
+import { withIronSession } from 'next-iron-session';
 interface TraderPageProps{
-  trader_email: string;
   trader: Trader;
 }
 
@@ -19,7 +19,7 @@ const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
   return (
 
     <div className="static bg-white text-white">
-    <SiteHeader name={trader.firstName}></SiteHeader>
+      <SiteHeader user={trader}></SiteHeader>
     <Head>
       <title>Trader Dashboard</title>
       <meta name="description" content="Dashboard for BTS Trader" />
@@ -38,31 +38,35 @@ const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
 
 export default TraderPage
 
-export async function getServerSideProps(context: { query: { email?: any } }) {
-  if(Object.keys(context.query).length == 0){
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-  const user = await getUser(context.query.email);
+export const getServerSideProps = withIronSession(
+  async ({ req, res }) => {
 
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
+    
+    const userData = await req.session.get("user");
+
+    console.log(userData);
+    if (!userData) {
+      res.statusCode = 404;
+      //res.end();
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
     }
-  }
-
-
-  return {
-    props: {
-      trader: user,
-
+    const {user} = userData;
+    return {
+      props: { 
+        trader: user,
+       }
+    };
+  },
+  {
+    cookieName: "BTSCOOKIE",
+    cookieOptions: {
+      secure: process.env.NODE_ENV === "production" ? true : false
     },
-  };
-}
+    password: process.env.NEXT_APPLICATION_SECRET ? process.env.NEXT_APPLICATION_SECRET : "dev",
+  }
+);

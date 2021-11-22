@@ -1,16 +1,22 @@
 import { useRouter } from "next/router"
+import { Client, Manager, Trader } from "../../lib/types";
 
 /**
  * Component properties for a EventDetailsBlock.
  */
 interface SiteHeaderProps {
-  name: string;
+  user: Client | Trader | Manager;
 }
 
-export default function SiteHeader({ name }: SiteHeaderProps) {
+export default function SiteHeader({ user }: SiteHeaderProps) {
 
   const router = useRouter()
   const logout = async () => {
+    const response = await fetch("/api/session", {
+      method: "DELETE",
+      // headers: { "Content-Type": "application/json" },
+      // body: JSON.stringify({email, password })
+    });
     router.push("/");
   }
 
@@ -22,7 +28,7 @@ export default function SiteHeader({ name }: SiteHeaderProps) {
       </div>
       <div className="flex items-center justify-center gap-24">
         <h2 className="text-3xl italic font-semibold tracking-wide">
-          Hi, {name}!
+          Hi, {user.firstName}!
         </h2>
         <button
           type="button"
