@@ -46,7 +46,7 @@ export const tryLogin = async (
   return loginUser;
 };
 
-export const getUser = async (id: number): Promise<Object | undefined> => {
+export const getUser = async (id: number): Promise<Client | Trader | Manager | undefined> => {
   
   const { data } = await apollo.query({
     query: GET_USER_FROM_ID,

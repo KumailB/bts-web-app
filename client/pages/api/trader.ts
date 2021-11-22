@@ -33,6 +33,7 @@ export const getPendingTransactions = async (
       traderId: transac.trader_id,
       clientId: transac.client_id,
       orderType: transac.order_type,
+      convRate: transac.conv_rate,
     };
 
     transactions.push(transaction);

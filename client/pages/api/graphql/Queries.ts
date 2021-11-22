@@ -73,6 +73,7 @@ export const GET_PENDING_TRANSACTIONS = gql`
       date
       commission_paid
       commission_payment_type
+      conv_rate
       status
       trader_id
       client_id

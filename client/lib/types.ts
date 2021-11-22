@@ -29,10 +29,12 @@ export interface Transaction {
   date: string;
   commissionPaid: number;
   status: Status;
+  convRate: number;
   traderId: number;
   clientId: number;
   orderType: OrderType;
-  client: Client;
+  client?: Client;
+  trader?: Trader;
 }
 
 export interface Client extends User{
