@@ -1,9 +1,10 @@
-import { GraphQLID, GraphQLList } from "graphql";
+import { GraphQLID, GraphQLList, GraphQLString } from "graphql";
 import { ClientType } from "../TypeDefs/Client";
 import { Client } from "../../Entities/Client";
 import { User } from "../../Entities/User";
 import { getManager, Like } from "typeorm";
 import moment from "moment";
+import { Address } from "../../Entities/Address";
 
 export const GET_CLIENT_LOGIN = {
   type: ClientType,
@@ -89,12 +90,12 @@ export const GET_TRADER_CLIENTS = {
 export const GET_SEARCH_CLIENTS = {
   type: new GraphQLList(ClientType),
   args: {
-    first_name: { type: GraphQLID },
-    last_name: { type: GraphQLID },
-    street_address: { type: GraphQLID },
-    city: { type: GraphQLID },
-    state: { type: GraphQLID },
-    zip_code: { type: GraphQLID },
+    first_name: { type: GraphQLString },
+    last_name: { type: GraphQLString },
+    street_address: { type: GraphQLString },
+    city: { type: GraphQLString },
+    state: { type: GraphQLString },
+    zip_code: { type: GraphQLString },
   },
   async resolve(parent: any, args: any) {
     let { first_name, last_name, street_address, city, state, zip_code } = args;
@@ -104,21 +105,19 @@ export const GET_SEARCH_CLIENTS = {
     if (!city) city = "";
     if (!state) state = "";
     if (!zip_code) zip_code = "";
-    const addressIDRawQuery: string =
-      "SELECT `Address`.`client_id` AS `Address_client_id` FROM `address` `Address` WHERE (`Address`.`street_address` LIKE '%" +
-      street_address +
-      "%' AND `Address`.`city` LIKE '%" +
-      city +
-      "%' AND `Address`.`state` LIKE '%" +
-      state +
-      "%' AND `Address`.`zip_code` LIKE '%" +
-      zip_code +
-      "%')";
-    const entityManager = getManager();
-    const addressIDs = await entityManager.query(addressIDRawQuery);
+    const addresses = await Address.find({
+      where: [
+        {
+          street_address: Like(`%${street_address}`),
+          city: Like(`%${city}`),
+          zip_code: Like(`%${zip_code}`),
+          state: Like(`%${state}`),
+        }
+      ]
+    })
     let clientIDs: number[] = [];
-    addressIDs.forEach((entry: { Address_client_id: number }) =>
-      clientIDs.push(entry.Address_client_id)
+    addresses.forEach((entry: { client_id: number }) =>
+      clientIDs.push(entry.client_id)
     );
     const users = await User.findByIds(clientIDs, {
       first_name: Like(`%${first_name}%`),
