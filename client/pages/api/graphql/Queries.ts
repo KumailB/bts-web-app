@@ -97,3 +97,15 @@ export const GET_REPORT_DURING = gql`
     }
   }
 `;
+
+export const GET_SEARCH_CLIENTS = gql`
+  query getSearchClients($first_name: String!, $last_name: String!, $street_address: String!, $city: String!, $state: String!, $zip_code: String!) {
+    getSearchClients(first_name: $first_name, last_name: $last_name, street_address: $street_address, city: $city, state: $state, zip_code: $zip_code){
+      id
+      email
+      first_name
+      last_name
+      user_type
+    }
+  }
+`;

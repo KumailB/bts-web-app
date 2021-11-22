@@ -5,6 +5,7 @@ import { User } from "../../Entities/User";
 import { getManager, Like } from "typeorm";
 import moment from "moment";
 import { Address } from "../../Entities/Address";
+import { UserType } from "../TypeDefs/User";
 
 export const GET_CLIENT_LOGIN = {
   type: ClientType,
@@ -88,7 +89,7 @@ export const GET_TRADER_CLIENTS = {
 };
 
 export const GET_SEARCH_CLIENTS = {
-  type: new GraphQLList(ClientType),
+  type: new GraphQLList(UserType),
   args: {
     first_name: { type: GraphQLString },
     last_name: { type: GraphQLString },
@@ -123,9 +124,9 @@ export const GET_SEARCH_CLIENTS = {
       first_name: Like(`%${first_name}%`),
       last_name: Like(`%${last_name}%`),
     });
-    clientIDs = [];
-    users.forEach((entry: { id: number }) => clientIDs.push(entry.id));
-
-    return await Client.findByIds(clientIDs);
+    // clientIDs = [];
+    // users.forEach((entry: { id: number }) => clientIDs.push(entry.id));
+    // console.log(users);
+    return users;
   },
 };
