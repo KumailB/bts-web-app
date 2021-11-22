@@ -26,7 +26,7 @@ const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <main className="min-h-screen text-black my-12 mx-8 lg:mx-36 xl:mx-56">
+    <main className="min-h-screen text-black my-12 mx-8 lg:mx-12 xl:mx-16">
         <div>
           <Pending traderId={trader.id} />
         </div>         

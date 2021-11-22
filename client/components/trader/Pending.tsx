@@ -48,7 +48,7 @@ export default function Pending({ traderId }: PendingProps) {
     <div>
       <div className="py-8 text-5xl font-light ">Pending Transactions</div>
       <div className="">
-        <div className="flex gap-auto justify-between drop-shadow-2xl text-black font-semibold text-xl  p-4 font-light  rounded-lg">
+        <div className="flex gap-auto justify-between drop-shadow-2xl text-black font-semibold text-xl p-4 font-light  rounded-lg">
           <div className="w-1/5 break-all">Name</div>
           <div className="w-1/6 break-all text-right">Wallet/BTC</div>
           <div className="w-1/6 break-all text-right">Balance/$</div>
@@ -57,9 +57,9 @@ export default function Pending({ traderId }: PendingProps) {
           <div className="w-1/6 break-all text-right">Subtotal/$</div>
           <div className="w-1/6  break-all text-right">Commission </div>
           
-          <div className="w-48 break-all text-right">Buy/Sell</div>
+          <div className="w-1/6 break-all text-right">Buy/Sell</div>
           <div className="w-1/6  break-all text-right">Total/$</div>
-          <div className="w-1/6 -mr-2 break-all text-right">Date</div>
+          <div className="w-1/6 -mr-2  break-all text-right">Date</div>
 
           
           

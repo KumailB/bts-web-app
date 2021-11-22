@@ -155,12 +155,12 @@ export default function Order({client, rate, levelRate}: OrderProps) {
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8">
             <div >Order price: </div>
-            <div>{amount ? (buy ? (Number(amount)*rate).toFixed(2) : (Number(amount)*rate*-1).toFixed(2)) : (0).toFixed(2) } $</div>
+            <div>{amount ? (buy ? (Number(amount)*rate).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : (Number(amount)*rate*-1).toFixed(2)) : (0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') } $</div>
          
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8">
             <div >Commission: </div>
-            <div>{amount ? (usd ? (Number(amount)*rate*levelRate).toFixed(2)+" $" : (Number(amount)*levelRate).toFixed(5)+" BTC") : usd ? (0).toFixed(2)+" $" :  (0).toFixed(5)+" BTC" } </div>
+            <div>{amount ? (usd ? (Number(amount)*rate*levelRate).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+" $" : (Number(amount)*levelRate).toFixed(5)+" BTC") : usd ? (0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+" $" :  (0).toFixed(5)+" BTC" } </div>
           </div>
         </div>
         <div className="flex flex-wrap gap-4 items-center mt-4 justify-between">

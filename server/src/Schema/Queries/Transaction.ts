@@ -163,13 +163,13 @@ export const GET_REPORT_DURING = {
       " )";
 
     const boughtQuery: string =
-      "SELECT SUM(`value`) as `btc_bought`, SUM(`value` * `conv_rate`) as `sales` FROM `transaction` `Transaction` WHERE ( `Transaction`.`order_type` = 'BUY' AND `Transaction`.`status` = 'Completed'" +
+      "SELECT SUM(`value`) as `btc_bought`, SUM(`value` * `conv_rate`) as `sales` FROM `transaction` `Transaction` WHERE ( `Transaction`.`order_type` = 'SELL' AND `Transaction`.`status` = 'Completed'" +
       fromDate +
       tillDate +
       " )";
 
     const soldQuery: string =
-      "SELECT SUM(`value`) as `btc_sold`, SUM(`value` * `conv_rate`) as `purchases` FROM `transaction` `Transaction` WHERE ( `Transaction`.`order_type` = 'SELL' AND `Transaction`.`status` = 'Completed'" +
+      "SELECT SUM(`value`) as `btc_sold`, SUM(`value` * `conv_rate`) as `purchases` FROM `transaction` `Transaction` WHERE ( `Transaction`.`order_type` = 'BUY' AND `Transaction`.`status` = 'Completed'" +
       fromDate +
       tillDate +
       " )";

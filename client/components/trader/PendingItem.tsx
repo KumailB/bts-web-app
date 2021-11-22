@@ -54,14 +54,14 @@ export default function Pending({ transaction }: PendingItemProps) {
   <div className="flex gap-auto justify-between bg-blue-600 drop-shadow-2xl text-gray-100 text-xl mb-4 p-4 font-light  rounded-lg">
     <div className="w-1/5 break-all">{transaction.client?.firstName+ " "+ transaction.client?.lastName}</div>
     <div className="w-1/6 break-all text-right">{transaction.client?.wallet.toFixed(5)}</div>
-    <div className="w-1/6 break-all text-right">{transaction.client?.balance.toFixed(2)}</div>
+    <div className="w-1/6 break-all text-right">{transaction.client?.balance.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
     <div className="w-1/6 break-all text-right">{transaction.value.toFixed(5)}</div>
-    <div className="w-1/6 break-all text-right">{transaction.convRate.toFixed(2)}</div>
-    <div className="w-1/6 break-all text-right">{subTotal.toFixed(2)}</div>
-    <div className="w-1/6 break-all text-right">{transaction.commissionType == "BTC" ? transaction.commissionPaid.toFixed(5)+" BTC" : transaction.commissionPaid.toFixed(2)+" $"}</div>
+    <div className="w-1/6 break-all text-right">{transaction.convRate.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+    <div className="w-1/6 break-all text-right">{subTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+    <div className="w-1/6 break-all text-right">{transaction.commissionType == "BTC" ? transaction.commissionPaid.toFixed(5)+" BTC" : transaction.commissionPaid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+" $"}</div>
 
-    <div className="w-48 break-al text-right">{transaction.orderType}</div>
-    <div className="w-1/6 break-all text-right">{orderTotal.toFixed(2)}</div>
+    <div className="w-1/6 break-al text-right">{transaction.orderType}</div>
+    <div className="w-1/6 break-all text-right">{orderTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
 
     <div className="w-1/6 -mr-2 break-all text-right">{moment(Number(transaction.date)).format("D MMM YYYY")}</div>
     

@@ -49,6 +49,18 @@ export interface Client extends User{
   traderName?: string; 
 }
 
+export interface Report {
+  completed: number;
+  pending: number;
+  cancelled: number;
+  sales: number;
+  purchases: number;
+  btcBought: number;
+  btcSold: number;
+  usdCommission: number;
+  btcCommission: number;
+}
+
 export interface Trader extends User{
 }
 
