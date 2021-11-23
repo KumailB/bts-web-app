@@ -83,13 +83,17 @@ export default function Order({client, rate, levelRate}: OrderProps) {
         // client.wallet -= Number(amount)
       }
     }
-    await createTransaction(transaction);
+    const done = await createTransaction(transaction);
+    if(!done){
+      setMessage("There was an error placing your order. Please try again later!");
+      return;
+    }
 
 
     // UPDATE CLIENT
     setAmount("");
 
-    setMessage("Your order has been placed! Once approved, you will see changes on your account. ");
+    setMessage("Your order has been placed! Once approved, you will see changes on your account.");
   };
 
   return (
@@ -194,12 +198,12 @@ export default function Order({client, rate, levelRate}: OrderProps) {
         <div className="flex flex-wrap gap-4 items-center mt-4 justify-between">
           <button
             type="submit"
-            className={"transition duration-400 ease-in-out rounded-full text-white font-semibold"+(message.includes("fund") ? " bg-red-500 hover:bg-red-600 " : " bg-green-600 hover:bg-green-600 ")}
+            className={"transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-600 hover:bg-green-600 ")}
           >
             <div className="py-4 px-40 text-2xl">Place order</div>
           </button>
 
-          <div className={"text-xl py-4 font-semibold "+(message.includes("fund") ? " text-red-500" : " text-green-600")}>
+          <div className={"text-xl py-4 font-semibold "+((message.includes("fund") || message.includes("error")) ? " text-red-500" : " text-green-600")}>
             {message ? message : null}
           </div>
         </div>
