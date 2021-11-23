@@ -5,7 +5,7 @@ export class Transaction extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ nullable: false })
   commission_payment_type!: string;
 
   @Column({ nullable: false, type: "float", default: 0.0 })

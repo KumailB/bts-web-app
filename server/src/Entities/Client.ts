@@ -20,7 +20,7 @@ export class Client extends BaseEntity {
   @Column({ nullable: false, type: "int", default: 0 })
   level!: number;
 
-  @Column({ type: "date", default: "0000-00-00" })
+  @Column({ nullable: false, type: "date", default: "0000-00-00" })
   last_update!: string;
 
   @Column({ nullable: false, type: "int" })
