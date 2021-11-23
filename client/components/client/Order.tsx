@@ -1,6 +1,8 @@
+
 import { useRef, useState } from "react";
-import { Client } from "../../lib/types";
+import { Client, Transaction } from "../../lib/types";
 import { getBtcRate } from "../../pages/api/btc";
+import { createTransaction } from "../../pages/api/client";
 
 interface OrderProps{
   client: Client,
@@ -18,7 +20,19 @@ export default function Order({client, rate, levelRate}: OrderProps) {
   const order = async (e : any) => {
     e.preventDefault();
 
-    
+    // DEFAULT TRANSACTION
+    const transaction: Transaction = {
+      id: -1,       // Placeholders
+      date: '',     // Placeholders
+      commissionType: 'USD',
+      value: Number(amount),
+      commissionPaid: Number(amount) * levelRate * rate,
+      status: 'Pending',
+      traderId: client.traderId,
+      clientId: client.id,
+      orderType: 'BUY',
+      convRate: rate,
+    }
     if(buy){
       // BUY ORDER
       
@@ -33,12 +47,14 @@ export default function Order({client, rate, levelRate}: OrderProps) {
       }
       else{   // DEDUCTING BALANCE
         if(usd){
-          client.balance -= Number(amount)*rate*(1+levelRate);
-          client.wallet += Number(amount)
+          // client.balance -= Number(amount)*rate*(1+levelRate);
+          // client.wallet += Number(amount)
         }
         else{
-          client.balance -= Number(amount)*rate;
-          client.wallet += Number(amount)*rate*(1-levelRate);
+          transaction.commissionType = 'BTC'
+          transaction.commissionPaid = Number(amount) * levelRate;
+          // client.balance -= Number(amount)*rate;
+          // client.wallet += Number(amount)*rate*(1-levelRate);
         }
       }
     }
@@ -54,10 +70,22 @@ export default function Order({client, rate, levelRate}: OrderProps) {
         return;
       }
       else{   // DEDUCTING BALANCE
-        client.balance += Number(amount)*rate*(1-levelRate);
-        client.wallet -= Number(amount)
+        transaction.orderType = 'SELL';
+        if(usd){
+          transaction.commissionType = 'USD'
+          transaction.commissionPaid = Number(amount) * levelRate * rate;
+        }
+        else{
+          transaction.commissionType = 'BTC'
+          transaction.commissionPaid = Number(amount) * levelRate;
+        }
+        // client.balance += Number(amount)*rate*(1-levelRate);
+        // client.wallet -= Number(amount)
       }
     }
+    await createTransaction(transaction);
+
+
     // UPDATE CLIENT
     setAmount("");
 
