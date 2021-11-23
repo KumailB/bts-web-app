@@ -25,3 +25,20 @@ export const CREATE_TRANSACTION = gql`
     }
   }
 `;
+
+export const UPDATE_TRANSACTION = gql`
+  mutation updateTransaction($id: ID!, $status: String!) {
+    updateTransaction(id: $id, status: $status) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_CLIENT = gql`
+  mutation updateClient($id: ID!, $usd: Float!, $btc: Float!) {
+    updateClient(id: $id, usd: $usd, btc: $btc) {
+      id
+    }
+  }
+`;
+

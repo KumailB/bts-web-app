@@ -17,7 +17,7 @@ import {
   GET_REPORT_DURING,
   GET_TRANSACTIONS_DURING,
 } from "./Queries/Transaction";
-import { CREATE_TRANSACTION } from "./Mutations/Transaction";
+import { CREATE_TRANSACTION, UPDATE_TRANSACTION } from "./Mutations/Transaction";
 import { GET_COMMISSION_RATE } from "./Queries/Level";
 import { GET_ADDRESS } from "./Queries/Address";
 
@@ -111,6 +111,7 @@ const Mutation = new GraphQLObjectType({
   fields: {
     createUser: CREATE_USER,
     updateClient: UPDATE_CLIENT,
+    updateTransaction: UPDATE_TRANSACTION,
     createTransaction: CREATE_TRANSACTION,
   },
 });

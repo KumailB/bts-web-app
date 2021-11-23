@@ -1,6 +1,7 @@
 import { Transaction } from "../../lib/types";
 import moment from "moment";
 import { useRouter } from "next/router";
+import { updateClient, updateTransaction } from "../../pages/api/trader";
 
 interface PendingItemProps {
   transaction: Transaction;
@@ -11,10 +12,10 @@ export default function Pending({ transaction }: PendingItemProps) {
 
   const buy = transaction.orderType === "BUY" ? true : false;
   const usd = transaction.commissionType === "USD" ? true : false;
-  let newWallet;
-  let newBalance;
-  let subTotal;
-  let orderTotal;
+  let newWallet : number;
+  let newBalance : number;
+  let subTotal : number;
+  let orderTotal : number;
 
   if(buy){
     // BUY ORDER
@@ -40,13 +41,23 @@ export default function Pending({ transaction }: PendingItemProps) {
   
 
   const approve = async (e : any) => {
-
-    e.preventDefault();
+    e.preventDefault(transaction.client?.balance);
+    console.log()
+    console.log(newBalance);
+    console.log(newWallet);
+    const updated = await updateClient(transaction.clientId, newBalance, newWallet);
+    if(updated){
+      await updateTransaction(transaction.id, "Completed");
+    }
     
     router.reload();
   }
   const cancel = async (e : any) => {
     e.preventDefault();
+    const updated = await updateClient(transaction.clientId, newBalance, newWallet);
+    if(updated){
+      await updateTransaction(transaction.id, "Cancelled");
+    }
     router.reload();
   }
 

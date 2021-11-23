@@ -59,6 +59,11 @@ export const getClient = async (
 export const createTransaction = async (
   transac: Transaction
 ): Promise<boolean|undefined> => {
+
+  if(!transac){
+    return false;
+  }
+  
   const { data } = await apollo.mutate({
     mutation: CREATE_TRANSACTION,
     variables: {
