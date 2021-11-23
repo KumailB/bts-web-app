@@ -15,9 +15,6 @@ import { getBtcRate } from './api/btc';
 import { getLevelRate } from './api/level';
 import { withIronSession } from 'next-iron-session';
 
-
-
-
 interface ClientPageProps{
   client: Client;
   rate: number;

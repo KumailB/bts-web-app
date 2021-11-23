@@ -8,7 +8,6 @@ interface PendingItemProps {
 
 export default function Pending({ client }: PendingItemProps) {
   
-  console.log("Here")
 
   const approve = async (e : any) => {
 
@@ -22,8 +21,8 @@ export default function Pending({ client }: PendingItemProps) {
   }
 
   return (
-  <div className="flex gap-auto justify-between bg-blue-600 drop-shadow-2xl text-gray-100 text-xl mb-4 p-4 font-light  rounded-lg">
-    <div>{client.firstName + " " + client.lastName}</div>
+  <div className="flex gap-auto justify-between bg-blue-600 drop-shadow-2xl text-gray-100 text-3xl mb-4 p-8 font-light  rounded-lg">
+    <div>{client?.firstName + " " + client?.lastName}</div>
     {/*<div>{moment(Number(transaction.date)).format("D MMM YYYY h:mm A")}</div> */}
   </div>);
 }
