@@ -19,15 +19,15 @@ export const getReport = async (
   }
 
   const report: Report = {
-    completed: data.getReportDuring.completed,
-    pending: data.getReportDuring.pending,
-    cancelled: data.getReportDuring.cancelled,
-    sales: data.getReportDuring.sales,
-    purchases: data.getReportDuring.purchases,
-    btcBought: data.getReportDuring.btc_bought,
-    btcSold: data.getReportDuring.btc_sold,
-    usdCommission: data.getReportDuring.usd_commission,
-    btcCommission: data.getReportDuring.btc_commission,
+    completed: data.getReportDuring.completed ? data.getReportDuring.completed : 0,
+    pending: data.getReportDuring.pending ? data.getReportDuring.pending : 0,
+    cancelled: data.getReportDuring.cancelled ? data.getReportDuring.cancelled : 0,
+    sales: data.getReportDuring.sales ? data.getReportDuring.sales : 0,
+    purchases: data.getReportDuring.purchases ? data.getReportDuring.purchases : 0,
+    btcBought: data.getReportDuring.btc_bought ? data.getReportDuring.btc_bought : 0,
+    btcSold: data.getReportDuring.btc_sold ? data.getReportDuring.btc_sold : 0,
+    usdCommission: data.getReportDuring.usd_commission ? data.getReportDuring.usd_commission : 0,
+    btcCommission: data.getReportDuring.btc_commission ? data.getReportDuring.btc_commission : 0,
   }
 
   return report;

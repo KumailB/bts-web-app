@@ -21,12 +21,14 @@ export default function Order({}: ReportProps) {
   const [usdCom, setUsdCom] = useState(0);
   const [btcCom, setBtcCom] = useState(0);
   const [totalCom, setTotalCom] = useState(0);
+  const [message, setMessage] = useState("");
 
   const generate = async (e: any) => {
     e.preventDefault();
 
     const report = await getReport(from, till);
     const btcRate = await getBtcRate();
+    console.log(report);
     if (report) {
       setComp(report?.completed);
       setPend(report?.pending);
@@ -106,7 +108,7 @@ export default function Order({}: ReportProps) {
           <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-16">
             <div>Bitcoins Bought: </div>
             <div className="flex items-center gap-2">
-              {btcSold.toFixed(5)} BTC
+              {btcBought.toFixed(5)} BTC
             </div>
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-16">
