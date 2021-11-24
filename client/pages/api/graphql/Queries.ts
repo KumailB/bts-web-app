@@ -94,6 +94,7 @@ export const GET_REPORT_DURING = gql`
       btc_sold
       usd_commission
       btc_commission
+      payments
     }
   }
 `;

@@ -17,7 +17,6 @@ export const getReport = async (
   if (!data || !data.getReportDuring) {
     return;
   }
-
   const report: Report = {
     completed: data.getReportDuring.completed ? data.getReportDuring.completed : 0,
     pending: data.getReportDuring.pending ? data.getReportDuring.pending : 0,
@@ -28,6 +27,7 @@ export const getReport = async (
     btcSold: data.getReportDuring.btc_sold ? data.getReportDuring.btc_sold : 0,
     usdCommission: data.getReportDuring.usd_commission ? data.getReportDuring.usd_commission : 0,
     btcCommission: data.getReportDuring.btc_commission ? data.getReportDuring.btc_commission : 0,
+    payments: data.getReportDuring.payments ? data.getReportDuring.payments : 0,
   }
 
   return report;

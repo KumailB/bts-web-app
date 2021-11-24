@@ -59,6 +59,7 @@ export interface Report {
   btcSold: number;
   usdCommission: number;
   btcCommission: number;
+  payments: number;
 }
 
 export interface Trader extends User{

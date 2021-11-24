@@ -12,5 +12,6 @@ export const ReportType = new GraphQLObjectType({
     btc_sold: { type: GraphQLFloat },
     usd_commission: { type: GraphQLFloat },
     btc_commission: { type: GraphQLFloat },
+    payments: { type: GraphQLFloat },
   }),
 });

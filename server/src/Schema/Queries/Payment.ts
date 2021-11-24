@@ -133,19 +133,15 @@ export const GET_REPORT_DURING = {
     const { from, till } = args;
     let fromDate = "";
     let tillDate = "";
-    let paymentfromDate = "";
-    let paymenttillDate = "";
     if (from && from != "") {
       const date = moment(new Date(from)).format("yyyy-MM-DD HH:mm:ss");
       fromDate = " AND `Transaction`.`date` >= '" + date + "'";
-      paymentfromDate = " AND `Payment`.`date` >= '" + date + "'";
     }
     if (till && till != "") {
       const date = moment(new Date(till))
         .add(1, "days")
         .format("yyyy-MM-DD HH:mm:ss");
       tillDate = " AND `Transaction`.`date` < '" + date + "'";
-      paymenttillDate = " AND `Payment`.`date` < '" + date + "'";
     }
 
     const compQuery: string =
@@ -189,12 +185,6 @@ export const GET_REPORT_DURING = {
       fromDate +
       tillDate +
       " )";
-
-      const paymentQuery: string =
-      "SELECT SUM(`value`) as `payments` FROM `payment` `Payment` WHERE (`Payment`.`status` = 'Completed'" +
-      paymentfromDate +
-      paymenttillDate +
-      " )";
     
     const entityManager = getManager();
     const comp = await entityManager.query(compQuery);
@@ -204,7 +194,6 @@ export const GET_REPORT_DURING = {
     const sold = await entityManager.query(soldQuery);
     const usd = await entityManager.query(usdQuery);
     const btc = await entityManager.query(btcQuery);
-    const payments = await entityManager.query(paymentQuery);
 
     return {
       completed: comp[0].completed,
@@ -216,7 +205,6 @@ export const GET_REPORT_DURING = {
       purchases: sold[0].purchases,
       usd_commission: usd[0].usd,
       btc_commission: btc[0].btc,
-      payments: payments[0].payments,
     }
   },
 };

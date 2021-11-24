@@ -21,6 +21,7 @@ export default function Order({}: ReportProps) {
   const [usdCom, setUsdCom] = useState(0);
   const [btcCom, setBtcCom] = useState(0);
   const [totalCom, setTotalCom] = useState(0);
+  const [payments, setPayments] = useState(0);
   const [message, setMessage] = useState("");
 
   const generate = async (e: any) => {
@@ -33,7 +34,7 @@ export default function Order({}: ReportProps) {
       setComp(report?.completed);
       setPend(report?.pending);
       setCanc(report?.cancelled);
-      setTotalTrans(comp + pend + canc);
+      setTotalTrans(report?.completed + report?.pending + report?.cancelled);
       setRate(btcRate);
       setSales(report?.sales);
       setPurchases(report?.purchases);
@@ -41,7 +42,8 @@ export default function Order({}: ReportProps) {
       setBtcBought(report?.btcBought);
       setUsdCom(report?.usdCommission);
       setBtcCom(report?.btcCommission);
-      setTotalCom(usdCom + btcCom * rate);
+      setTotalCom(report?.usdCommission + report?.btcCommission * btcRate);
+      setPayments(report?.payments);
     }
   };
 
@@ -129,6 +131,12 @@ export default function Order({}: ReportProps) {
             <div>Total Commission: </div>
             <div className="flex items-center gap-2">
               {totalCom.toFixed(2)} $
+            </div>
+          </div>
+          <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-16">
+            <div>Payments: </div>
+            <div className="flex items-center gap-2">
+              {payments.toFixed(2)} $
             </div>
           </div>
         </div>
