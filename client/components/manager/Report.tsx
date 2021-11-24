@@ -33,7 +33,7 @@ export default function Order({}: ReportProps) {
       setComp(report?.completed);
       setPend(report?.pending);
       setCanc(report?.cancelled);
-      setTotalCom(comp + pend + canc);
+      setTotalTrans(comp + pend + canc);
       setRate(btcRate);
       setSales(report?.sales);
       setPurchases(report?.purchases);
@@ -122,7 +122,7 @@ export default function Order({}: ReportProps) {
             </div>
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-16">
-            <div>USD Sold: </div>
+            <div>USD Commission: </div>
             <div className="flex items-center gap-2">{usdCom.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} $</div>
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-16">
