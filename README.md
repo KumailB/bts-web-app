@@ -20,6 +20,7 @@ After creating the file, add the following fields with your MySQL username and p
  - `MYSQL_PORT='3306'`
  - `MYSQL_USERNAME=''`
  - `MYSQL_PASSWORD=''`
+ - `API_KEY = 'eShVmYq3t6w9yB&E)H@McQfTjWnZr4u7x!A%C*F-JaNdRgUkXp2s5v8y/B?E(G+'`
 
 If the server and/or MySQL are being hosted remotely, fill out HOST and PORT fields appropriately
 
@@ -36,6 +37,7 @@ After creating the file, add the following hostname and port fields:
  - `CLIENT_PORT='3000'`
  - `NEXT_PUBLIC_SERVER_HOST='localhost'`
  - `NEXT_PUBLIC_SERVER_PORT='3001'`
+ - `NEXT_GRAPHQL_API_KEY = 'eShVmYq3t6w9yB&E)H@McQfTjWnZr4u7x!A%C*F-JaNdRgUkXp2s5v8y/B?E(G+'`
 
 If the client and/or server are being hosted remotely, fill out HOST and PORT fields appropriately
 

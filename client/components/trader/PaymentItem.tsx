@@ -37,7 +37,6 @@ export default function PayItem({ payment }: PendingItemProps) {
 
   const approve = async (e : any) => {
     e.preventDefault();
-    console.log(payment.client?.wallet);
     const updated = await updateClient(payment.clientId, newBalance, payment.client?.wallet);
     if(updated){
       

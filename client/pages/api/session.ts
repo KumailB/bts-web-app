@@ -1,9 +1,6 @@
 import { withIronSession } from "next-iron-session";
 import { tryLogin } from "./login";
 
-const VALID_EMAIL = "chris@decimal.fm";
-const VALID_PASSWORD = "opensesame";
-
 export default withIronSession(
   async (req, res) => {
     if (req.method === "POST") {

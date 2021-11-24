@@ -29,7 +29,6 @@ export default function Order({}: ReportProps) {
 
     const report = await getReport(from, till);
     const btcRate = await getBtcRate();
-    console.log(report);
     if (report) {
       setComp(report?.completed);
       setPend(report?.pending);

@@ -23,19 +23,28 @@ const main = async () => {
     port: Number(process.env.MYSQL_PORT),
     username: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
-    logging: true, // For displaying sql statements
+    logging: false, // For displaying sql statements
     synchronize: false, // If true, creates tables for entities that don't exist
     entities: [Address, Client, Level, Manager, Trader, Transaction, Payment, User],
   });
+  
+  const loggingMiddleware = (req: any, res: any, next: () => void) => {
+    if(process.env.API_KEY === req.headers.authorization){
+      next();
+    }else{
+      return res.status(404).send("");
+    }
+  }
 
   const app = express();
   app.use(cors());
   app.use(express.json());
+  app.use(loggingMiddleware);
   app.use(
     "/graphql",
     graphqlHTTP({
       schema,
-      graphiql: true,
+      graphiql: false,
     })
   );
 
