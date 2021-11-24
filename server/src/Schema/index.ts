@@ -20,6 +20,7 @@ import {
 import { CREATE_TRANSACTION, UPDATE_TRANSACTION } from "./Mutations/Transaction";
 import { GET_COMMISSION_RATE } from "./Queries/Level";
 import { GET_ADDRESS } from "./Queries/Address";
+import { CREATE_PAYMENT, UPDATE_PAYMENT } from "./Mutations/Payment";
 
 /**
  * Possible issues with schema:
@@ -97,10 +98,11 @@ const RootQuery = new GraphQLObjectType({
     getReportDuring: GET_REPORT_DURING,
     getTraderClients: GET_TRADER_CLIENTS,
     getSearchClients: GET_SEARCH_CLIENTS,
+    getCommissionRate: GET_COMMISSION_RATE,
     getAllTransactions: GET_ALL_TRANSACTION,
+    getPendingPayments: GET_PENDING_TRANSACTIONS,
     getClientTransactions: GET_CLIENT_TRANSACTIONS,
     getTransactionsDuring: GET_TRANSACTIONS_DURING,
-    getCommissionRate: GET_COMMISSION_RATE,
     getPendingTransactions: GET_PENDING_TRANSACTIONS,
     getMonthlyTransactionTotal: GET_MONTHLY_TRANSACTION_TOTAL,
   },
@@ -111,6 +113,8 @@ const Mutation = new GraphQLObjectType({
   fields: {
     createUser: CREATE_USER,
     updateClient: UPDATE_CLIENT,
+    updatePayment: UPDATE_PAYMENT,
+    createPayment: CREATE_PAYMENT,
     updateTransaction: UPDATE_TRANSACTION,
     createTransaction: CREATE_TRANSACTION,
   },

@@ -6,7 +6,7 @@ import {
 } from "graphql";
 
 export const PaymentType = new GraphQLObjectType({
-  name: "Transaction",
+  name: "Payment",
   fields: () => ({
     id: { type: GraphQLID },
     status: { type: GraphQLString },

@@ -11,6 +11,7 @@ import { Manager } from "./Entities/Manager";
 import { Trader } from "./Entities/Trader";
 import { Transaction } from "./Entities/Transaction";
 import { User } from "./Entities/User";
+import { Payment } from "./Entities/Payment";
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ const main = async () => {
     password: process.env.MYSQL_PASSWORD,
     logging: true, // For displaying sql statements
     synchronize: false, // If true, creates tables for entities that don't exist
-    entities: [Address, Client, Level, Manager, Trader, Transaction, User],
+    entities: [Address, Client, Level, Manager, Trader, Transaction, Payment, User],
   });
 
   const app = express();

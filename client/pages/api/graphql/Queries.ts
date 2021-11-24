@@ -65,6 +65,19 @@ export const GET_ADDRESS = gql`
   }
 `;
 
+export const GET_PENDING_PAYMENTS = gql`
+  query getPendingPayments($trader_id: ID!) {
+    getPendingPayments(trader_id: $trader_id){
+      id
+      value
+      date
+      status
+      trader_id
+      client_id
+    }
+  }
+`;
+
 export const GET_PENDING_TRANSACTIONS = gql`
   query getPendingTransactions($trader_id: ID!) {
     getPendingTransactions(trader_id: $trader_id){

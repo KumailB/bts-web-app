@@ -1,6 +1,6 @@
-import { Client, Transaction, User } from "../../lib/types";
+import { Client, Payment, Transaction, User } from "../../lib/types";
 import apollo from "./apollo";
-import { CREATE_TRANSACTION } from "./graphql/Mutations";
+import { CREATE_PAYMENT, CREATE_TRANSACTION } from "./graphql/Mutations";
 import { GET_ADDRESS, GET_CLIENT, GET_CLIENT_LOGIN } from "./graphql/Queries";
 
 export const getClient = async (
@@ -75,6 +75,26 @@ export const createTransaction = async (
       client_id: transac.clientId,
       order_type: transac.orderType,
       conv_rate: transac.convRate,
+    }
+  })
+  return true;
+};
+
+export const createPayment = async (
+  payment: Payment
+): Promise<boolean|undefined> => {
+
+  if(!payment){
+    return false;
+  }
+  
+  const { data } = await apollo.mutate({
+    mutation: CREATE_PAYMENT,
+    variables: {
+      value: payment.value,
+      status: payment.status,
+      trader_id: payment.traderId,
+      client_id: payment.clientId,
     }
   })
   return true;

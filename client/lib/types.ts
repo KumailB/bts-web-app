@@ -37,6 +37,17 @@ export interface Transaction {
   trader?: Trader;
 }
 
+export interface Payment {
+  id: number;
+  value: number;
+  date: string;
+  status: Status;
+  traderId: number;
+  clientId: number;
+  client?: Client;
+  trader?: Trader;
+}
+
 export interface Client extends User{
   address: Address;
   phoneNum?: string;

@@ -7,7 +7,7 @@ import graphqlEndpoint from "./graphql/index";
 import { getUser } from "./login";
 import apollo from "./apollo";
 import { getClient } from "./client";
-import { UPDATE_CLIENT, UPDATE_TRANSACTION } from "./graphql/Mutations";
+import { UPDATE_CLIENT, UPDATE_PAYMENT, UPDATE_TRANSACTION } from "./graphql/Mutations";
 
 export const getPendingTransactions = async (
   trader_id: number
@@ -59,6 +59,23 @@ export const updateTransaction = async (
 
   const { data } = await apollo.mutate({
     mutation: UPDATE_TRANSACTION,
+    variables: {
+      id: id,
+      status: status,
+    }
+  })
+  return true;
+};
+
+export const updatePayment = async (
+  id: number, status: string
+): Promise<boolean | undefined> => {
+  if (!id || !status) {
+    return false;
+  }
+
+  const { data } = await apollo.mutate({
+    mutation: UPDATE_PAYMENT,
     variables: {
       id: id,
       status: status,

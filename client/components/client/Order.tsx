@@ -93,7 +93,7 @@ export default function Order({client, rate, levelRate}: OrderProps) {
     // UPDATE CLIENT
     setAmount("");
 
-    setMessage("Your order has been placed! Once approved, you will see changes on your account.");
+    setMessage("Your order has been placed! Once approved, you will see changes in your account.");
   };
 
   return (
@@ -182,12 +182,12 @@ export default function Order({client, rate, levelRate}: OrderProps) {
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8">
             <div >Current Rate: </div>
-            <div className ="flex items-center gap-2" >1    <img src="/logo.svg" className="h-8" /> = {rate.toFixed(2)} $</div>
+            <div className ="flex items-center gap-2" >1    <img src="/logo.svg" className="h-8" /> = {rate.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} $</div>
          
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8">
             <div >Order price: </div>
-            <div>{amount ? (buy ? (Number(amount)*rate).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : (Number(amount)*rate*-1).toFixed(2)) : (0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') } $</div>
+            <div>{amount ? (buy ? (Number(amount)*rate).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : (Number(amount)*rate*-1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')) : (0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') } $</div>
          
           </div>
           <div className="text-2xl  flex flex-shrink justify-between mb-8">
@@ -198,7 +198,7 @@ export default function Order({client, rate, levelRate}: OrderProps) {
         <div className="flex flex-wrap gap-4 items-center mt-4 justify-between">
           <button
             type="submit"
-            className={"transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-600 hover:bg-green-600 ")}
+            className={"transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-500 hover:bg-green-600 ")}
           >
             <div className="py-4 px-40 text-2xl">Place order</div>
           </button>

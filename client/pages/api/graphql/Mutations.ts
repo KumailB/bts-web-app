@@ -42,3 +42,28 @@ export const UPDATE_CLIENT = gql`
   }
 `;
 
+export const UPDATE_PAYMENT = gql`
+  mutation updatePayment($id: ID!, $status: String!) {
+    updatePayment(id: $id, status: $status) {
+      id
+    }
+  }
+`;
+
+export const CREATE_PAYMENT = gql`
+  mutation createPayment(
+    $value: Float!
+    $status: String!
+    $trader_id: ID!
+    $client_id: ID!
+  ) {
+    createPayment(
+      value: $value
+      status: $status
+      trader_id: $trader_id
+      client_id: $client_id
+    ) {
+      id
+    }
+  }
+`;

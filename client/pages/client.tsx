@@ -11,6 +11,7 @@ import SiteHeader from '../components/common/SiteHeader';
 import Order from '../components/client/Order';
 import Account from '../components/client/Account';
 import Profile from '../components/client/Profile';
+import Payment from '../components/client/Payment';
 import { getBtcRate } from './api/btc';
 import { getLevelRate } from './api/level';
 import { withIronSession } from 'next-iron-session';
@@ -34,15 +35,20 @@ const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
       </Head>
 
       <main className="min-h-screen text-black my-12 mx-8 lg:mx-36 xl:mx-56">
-        <div className="grid grid-rows-3 grid-flow-col gap-4">
-          <div className="row-span-3">
+        <div className="grid grid-rows-2 grid-cols-2 grid-flow-row gap-4">
+          <div className="">
             <Order client={client} rate={rate} levelRate={levelRate} />
           </div>
-          <div className="justify-self-end">
+          <div className="justify-self-end ">
+          <div>
             <Account client={client} />
           </div>
-          <div className="justify-self-end row-span-2">
+          <div className="">
             <Profile client={client} />
+          </div>
+          </div>
+          <div className="justify-self-start ">
+            <Payment client={client}  />
           </div>
           
         </div>
