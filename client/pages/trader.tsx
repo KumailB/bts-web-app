@@ -19,13 +19,6 @@ interface TraderPageProps{
 
 const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
   
-  const router = useRouter();
-  useEffect( () => {
-    if(!trader || trader.userType != 'Trader'){
-      router.push('/');
-    }
-  }, []);
-  
   return (
 
     <div className="static bg-white text-white">
@@ -57,7 +50,7 @@ export const getServerSideProps = withIronSession(
     
     const userData = await req.session.get("user");
 
-    if (!userData) {
+    if (!userData || userData.user.userType != 'Trader') {
       res.statusCode = 404;
       //res.end();
       return {

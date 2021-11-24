@@ -18,13 +18,6 @@ interface ManagerPageProps{
 
 const ManagerPage: NextPage<ManagerPageProps> = ({manager}) => {
 
-  const router = useRouter();
-  useEffect( () => {
-    if(!manager || manager.userType != 'Manager'){
-      router.push('/');
-    }
-  }, []);
-
   return (
 
     <div className="static bg-white text-white">
@@ -53,7 +46,7 @@ export const getServerSideProps = withIronSession(
     
     const userData = await req.session.get("user");
 
-    if (!userData) {
+    if (!userData || userData.user.userType != 'Manager') {
       res.statusCode = 404;
       //res.end();
       return {

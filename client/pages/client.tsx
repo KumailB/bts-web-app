@@ -25,13 +25,6 @@ interface ClientPageProps{
 
 const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
 
-  const router = useRouter();
-  useEffect( () => {
-    if(!client || client.userType != 'Client'){
-      router.push('/');
-    }
-  }, []);
-
   return (
     
     <div className="static bg-white text-white">
@@ -73,7 +66,7 @@ export const getServerSideProps = withIronSession(
     
     const userData = await req.session.get("user");
 
-    if (!userData) {
+    if (!userData || userData.user.userType != 'Client') {
       res.statusCode = 404;
       //res.end();
       return {
