@@ -15,6 +15,7 @@ import Payment from '../components/client/Payment';
 import { getBtcRate } from './api/btc';
 import { getLevelRate } from './api/level';
 import { withIronSession } from 'next-iron-session';
+import SiteFooter from '../components/common/SiteFooter';
 
 interface ClientPageProps{
   client: Client;
@@ -23,6 +24,13 @@ interface ClientPageProps{
 }
 
 const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
+
+  const router = useRouter();
+  useEffect( () => {
+    if(!client || client.userType != 'Client'){
+      router.push('/');
+    }
+  }, []);
 
   return (
     
@@ -35,7 +43,7 @@ const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
       </Head>
 
       <main className="min-h-screen text-black my-12 mx-8 lg:mx-36 xl:mx-56">
-        <div className="grid grid-rows-2 grid-cols-2 grid-flow-row gap-4">
+        <div className="flex flex-wrap gap-4 justify-between">
           <div className="">
             <Order client={client} rate={rate} levelRate={levelRate} />
           </div>
@@ -47,17 +55,12 @@ const ClientPage: NextPage<ClientPageProps> = ({client, rate, levelRate}) => {
             <Profile client={client} />
           </div>
           </div>
-          <div className="justify-self-start ">
+        </div>
+        <div className="justify-self-start ">
             <Payment client={client}  />
           </div>
-          
-        </div>
-       
       </main>
-
-      <footer >
-        <div className="absolute bottom-0 w-full text-lg text-center">© Copyright 2021 Bitcoin Trading System, All Rights Reserved</div>
-      </footer>
+      <SiteFooter/>
     </div>
 
   )

@@ -70,9 +70,9 @@ export default function Pay({client}: PaymentProps) {
         <div className="flex flex-wrap gap-4 items-center mt-4 justify-between">
           <button
             type="submit"
-            className={"transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-500 hover:bg-green-600 ")}
+            className={"w-full transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-500 hover:bg-green-600 ")}
           >
-            <div className="py-4 px-40 text-2xl">Pay</div>
+            <div className="py-4 text-2xl">Pay</div>
           </button>
 
           <div className={"text-xl py-4 font-semibold "+((message.includes("fund") || message.includes("error")) ? " text-red-500" : " text-green-600")}>

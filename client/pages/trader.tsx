@@ -12,11 +12,19 @@ import Search from '../components/trader/Search'
 import { getPendingTransactions } from './api/trader';
 import { withIronSession } from 'next-iron-session';
 import Payment from '../components/trader/Payment';
+import SiteFooter from '../components/common/SiteFooter';
 interface TraderPageProps{
   trader: Trader;
 }
 
 const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
+  
+  const router = useRouter();
+  useEffect( () => {
+    if(!trader || trader.userType != 'Trader'){
+      router.push('/');
+    }
+  }, []);
   
   return (
 
@@ -35,6 +43,7 @@ const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
           <Search/>
         </div>         
     </main>
+    <SiteFooter/>
   </div>
 
   )

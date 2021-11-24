@@ -10,12 +10,20 @@ import { getUser } from './api/login'
 import SiteHeader from '../components/common/SiteHeader';
 import Report from '../components/manager/Report';
 import { withIronSession } from 'next-iron-session'
+import SiteFooter from '../components/common/SiteFooter';
 
 interface ManagerPageProps{
   manager: Manager;
 }
 
 const ManagerPage: NextPage<ManagerPageProps> = ({manager}) => {
+
+  const router = useRouter();
+  useEffect( () => {
+    if(!manager || manager.userType != 'Manager'){
+      router.push('/');
+    }
+  }, []);
 
   return (
 
@@ -32,6 +40,7 @@ const ManagerPage: NextPage<ManagerPageProps> = ({manager}) => {
             <Report/>
           </div>         
       </main>
+      <SiteFooter/>
     </div>
 
   )
