@@ -95,6 +95,23 @@ export const GET_PENDING_TRANSACTIONS = gql`
   }
 `;
 
+export const GET_CLIENT_TRANSACTIONS = gql`
+  query getClientTransactions($client_id: ID!) {
+    getClientTransactions(client_id: $client_id){
+      id
+      value
+      date
+      commission_paid
+      commission_payment_type
+      conv_rate
+      status
+      trader_id
+      client_id
+      order_type
+    }
+  }
+`;
+
 export const GET_REPORT_DURING = gql`
   query getReportDuring($from: String!, $till: String!) {
     getReportDuring(from: $from, till: $till){

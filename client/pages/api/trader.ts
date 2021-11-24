@@ -1,5 +1,6 @@
 import { Client, Payment, Transaction, User } from "../../lib/types";
 import {
+  GET_CLIENT_TRANSACTIONS,
   GET_PENDING_PAYMENTS,
   GET_PENDING_TRANSACTIONS,
   GET_SEARCH_CLIENTS,
@@ -28,6 +29,47 @@ export const getPendingTransactions = async (
   }
   const transactions: Transaction[] = [];
   await data.getPendingTransactions.forEach((transac: any) => {
+    const transaction: Transaction = {
+      id: transac.id,
+      value: transac.value,
+      date: transac.date,
+      commissionPaid: transac.commission_paid,
+      commissionType: transac.commission_payment_type,
+      status: transac.status,
+      traderId: transac.trader_id,
+      clientId: transac.client_id,
+      orderType: transac.order_type,
+      convRate: transac.conv_rate,
+    };
+
+    transactions.push(transaction);
+  });
+  for (const transaction of transactions) {
+    const client = await getUser(transaction.clientId);
+    if (client) transaction.client = <Client>client;
+  }
+
+  return transactions;
+};
+
+export const getClientTransactions = async (
+  client_id: number
+): Promise<Transaction[] | undefined> => {
+  if (!client_id) {
+    return;
+  }
+
+  const { data } = await apollo.query({
+    query: GET_CLIENT_TRANSACTIONS,
+    variables: {
+      client_id: client_id,
+    },
+  });
+  if (!data || !data.getClientTransactions) {
+    return;
+  }
+  const transactions: Transaction[] = [];
+  await data.getClientTransactions.forEach((transac: any) => {
     const transaction: Transaction = {
       id: transac.id,
       value: transac.value,
