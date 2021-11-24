@@ -41,10 +41,7 @@ export default function Pending({ transaction }: PendingItemProps) {
   
 
   const approve = async (e : any) => {
-    e.preventDefault(transaction.client?.balance);
-    console.log()
-    console.log(newBalance);
-    console.log(newWallet);
+    e.preventDefault();
     const updated = await updateClient(transaction.clientId, newBalance, newWallet);
     if(updated){
       await updateTransaction(transaction.id, "Completed");
@@ -54,10 +51,8 @@ export default function Pending({ transaction }: PendingItemProps) {
   }
   const cancel = async (e : any) => {
     e.preventDefault();
-    const updated = await updateClient(transaction.clientId, newBalance, newWallet);
-    if(updated){
-      await updateTransaction(transaction.id, "Cancelled");
-    }
+    await updateTransaction(transaction.id, "Cancelled");
+
     router.reload();
   }
 

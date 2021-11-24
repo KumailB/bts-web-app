@@ -11,6 +11,7 @@ import Pending from '../components/trader/Pending';
 import Search from '../components/trader/Search'
 import { getPendingTransactions } from './api/trader';
 import { withIronSession } from 'next-iron-session';
+import Payment from '../components/trader/Payment';
 interface TraderPageProps{
   trader: Trader;
 }
@@ -29,6 +30,7 @@ const TraderPage: NextPage<TraderPageProps> = ({trader}) => {
 
     <main className="min-h-screen text-black my-12 mx-8 lg:mx-12 xl:mx-16">
         <div>
+          <Payment traderId={trader.id} />
           <Pending traderId={trader.id} />
           <Search/>
         </div>         

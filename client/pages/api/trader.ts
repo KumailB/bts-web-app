@@ -1,5 +1,6 @@
-import { Client, Transaction, User } from "../../lib/types";
+import { Client, Payment, Transaction, User } from "../../lib/types";
 import {
+  GET_PENDING_PAYMENTS,
   GET_PENDING_TRANSACTIONS,
   GET_SEARCH_CLIENTS,
 } from "./graphql/Queries";
@@ -50,6 +51,44 @@ export const getPendingTransactions = async (
   return transactions;
 };
 
+export const getPendingPayments = async (
+  trader_id: number
+): Promise<Payment[] | undefined> => {
+  if (!trader_id) {
+    return;
+  }
+
+  const { data } = await apollo.query({
+    query: GET_PENDING_PAYMENTS,
+    variables: {
+      trader_id: trader_id,
+    },
+  });
+
+  if (!data || !data.getPendingPayments) {
+    return;
+  }
+  const payments: Payment[] = [];
+  await data.getPendingPayments.forEach((pay: any) => {
+    const payment: Payment = {
+      id: pay.id,
+      value: pay.value,
+      date: pay.date,
+      status: pay.status,
+      traderId: pay.trader_id,
+      clientId: pay.client_id,
+    };
+
+    payments.push(payment);
+  });
+  for (const payment of payments) {
+    const client = await getUser(payment.clientId);
+    if (client) payment.client = <Client>client;
+  }
+
+  return payments;
+};
+
 export const updateTransaction = async (
   id: number, status: string
 ): Promise<boolean | undefined> => {
@@ -87,7 +126,7 @@ export const updatePayment = async (
 export const updateClient = async (
   id: number, usd: number, btc: number
 ): Promise<boolean | undefined> => {
-  if (!id || !usd || !btc) {
+  if (!id) {
     return false;
   }
 

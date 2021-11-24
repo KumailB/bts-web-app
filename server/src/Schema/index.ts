@@ -21,6 +21,7 @@ import { CREATE_TRANSACTION, UPDATE_TRANSACTION } from "./Mutations/Transaction"
 import { GET_COMMISSION_RATE } from "./Queries/Level";
 import { GET_ADDRESS } from "./Queries/Address";
 import { CREATE_PAYMENT, UPDATE_PAYMENT } from "./Mutations/Payment";
+import { GET_PENDING_PAYMENTS } from "./Queries/Payment";
 
 /**
  * Possible issues with schema:
@@ -100,7 +101,7 @@ const RootQuery = new GraphQLObjectType({
     getSearchClients: GET_SEARCH_CLIENTS,
     getCommissionRate: GET_COMMISSION_RATE,
     getAllTransactions: GET_ALL_TRANSACTION,
-    getPendingPayments: GET_PENDING_TRANSACTIONS,
+    getPendingPayments: GET_PENDING_PAYMENTS,
     getClientTransactions: GET_CLIENT_TRANSACTIONS,
     getTransactionsDuring: GET_TRANSACTIONS_DURING,
     getPendingTransactions: GET_PENDING_TRANSACTIONS,
