@@ -28,7 +28,7 @@ const main = async () => {
     entities: [Address, Client, Level, Manager, Trader, Transaction, Payment, User],
   });
   
-  const loggingMiddleware = (req: any, res: any, next: () => void) => {
+  const authMiddleware = (req: any, res: any, next: () => void) => {
     if(process.env.API_KEY === req.headers.authorization){
       next();
     }else{
@@ -39,7 +39,7 @@ const main = async () => {
   const app = express();
   app.use(cors());
   app.use(express.json());
-  app.use(loggingMiddleware);
+  app.use(authMiddleware);
   app.use(
     "/graphql",
     graphqlHTTP({
