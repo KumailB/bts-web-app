@@ -97,11 +97,11 @@ export default function Order({client, rate, levelRate}: OrderProps) {
   };
 
   return (
-    <div className="max-w-md mr-auto">
+    <div className=" max-w-md mr-auto">
       <div className="py-8 text-5xl font-light ">Place an Order</div>
       <form onSubmit={order}>
         <div className=" text-black">
-          <div className="flex items-center justify-between mb-8 text-2xl">
+          <div className="flex items-center gap-20 justify-between mb-8 text-2xl">
             <input
               id="amount-input"
               name="amount"
@@ -190,7 +190,7 @@ export default function Order({client, rate, levelRate}: OrderProps) {
             <div>{amount ? (buy ? (Number(amount)*rate).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : (Number(amount)*rate*-1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')) : (0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') } $</div>
          
           </div>
-          <div className="text-2xl  flex flex-shrink justify-between mb-8">
+          <div className="text-2xl flex flex-shrink justify-between mb-8">
             <div >Commission: </div>
             <div>{amount ? (usd ? (Number(amount)*rate*levelRate).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+" $" : (Number(amount)*levelRate).toFixed(5)+" BTC") : usd ? (0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+" $" :  (0).toFixed(5)+" BTC" } </div>
           </div>
@@ -198,9 +198,9 @@ export default function Order({client, rate, levelRate}: OrderProps) {
         <div className="flex flex-wrap gap-4 items-center mt-4 justify-between">
           <button
             type="submit"
-            className={"transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-500 hover:bg-green-600 ")}
+            className={"w-full min-w-md transition duration-400 ease-in-out rounded-full text-white font-semibold"+((message.includes("fund") || message.includes("error")) ? " bg-red-500 hover:bg-red-600 " : " bg-green-500 hover:bg-green-600 ")}
           >
-            <div className="py-4 px-40 text-2xl">Place order</div>
+            <div className="py-4  text-2xl">Place order</div>
           </button>
 
           <div className={"text-xl py-4 font-semibold "+((message.includes("fund") || message.includes("error")) ? " text-red-500" : " text-green-600")}>
