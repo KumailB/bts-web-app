@@ -19,7 +19,7 @@ export default function Order({ client }: AccountProps) {
         <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-8">
           <div>Balance: </div>
           <div className="flex items-center gap-2">
-            {client.balance.toFixed(2)} $
+            {client.balance.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} $
           </div>
         </div>
         <div className="text-2xl  flex flex-shrink justify-between mb-8 gap-8">
