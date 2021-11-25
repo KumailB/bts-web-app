@@ -37,6 +37,7 @@ After creating the file, add the following hostname and port fields:
  - `CLIENT_PORT='3000'`
  - `NEXT_PUBLIC_SERVER_HOST='localhost'`
  - `NEXT_PUBLIC_SERVER_PORT='3001'`
+ - `NEXT_APPLICATION_SECRET = 'nZr4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7w!z$C&F)J@'`
  - `NEXT_GRAPHQL_API_KEY = 'eShVmYq3t6w9yB&E)H@McQfTjWnZr4u7x!A%C*F-JaNdRgUkXp2s5v8y/B?E(G+'`
 
 If the client and/or server are being hosted remotely, fill out HOST and PORT fields appropriately
