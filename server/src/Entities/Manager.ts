@@ -2,6 +2,6 @@ import { BaseEntity, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Manager extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({nullable: false})
   id!: number;
 }
