@@ -47,3 +47,11 @@ If the client and/or server are being hosted remotely, fill out HOST and PORT fi
  - `cd client`
  - `npm install`
  - `npm run dev`
+
+
+### Contributors
+- Kumail Bukhari - sxb180119
+- Autumn Pin - abp170003
+- Haris Gusic - hxg170006
+- Jonathan Harvey - jeh180000
+- Siddharth Sarangi - sxs200077
