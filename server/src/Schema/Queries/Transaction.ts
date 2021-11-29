@@ -136,14 +136,16 @@ export const GET_REPORT_DURING = {
     let paymentfromDate = "";
     let paymenttillDate = "";
     if (from && from != "") {
-      const date = moment(new Date(from)).format("yyyy-MM-DD HH:mm:ss");
+      const date = moment(new Date(from))
+        .add(1, "days")
+        .format("yyyy-MM-DD 00:00:00");
       fromDate = " AND `Transaction`.`date` >= '" + date + "'";
       paymentfromDate = " AND `Payment`.`date` >= '" + date + "'";
     }
     if (till && till != "") {
       const date = moment(new Date(till))
-        .add(1, "days")
-        .format("yyyy-MM-DD HH:mm:ss");
+        .add(2, "days")
+        .format("yyyy-MM-DD 00:00:00");
       tillDate = " AND `Transaction`.`date` < '" + date + "'";
       paymenttillDate = " AND `Payment`.`date` < '" + date + "'";
     }
@@ -178,24 +180,24 @@ export const GET_REPORT_DURING = {
       tillDate +
       " )";
 
-      const usdQuery: string =
+    const usdQuery: string =
       "SELECT SUM(`commission_paid`) as `usd` FROM `transaction` `Transaction` WHERE ( `Transaction`.`commission_payment_type` = 'USD' AND `Transaction`.`status` = 'Completed'" +
       fromDate +
       tillDate +
       " )";
 
-      const btcQuery: string =
+    const btcQuery: string =
       "SELECT SUM(`commission_paid`) as `btc` FROM `transaction` `Transaction` WHERE ( `Transaction`.`commission_payment_type` = 'BTC' AND `Transaction`.`status` = 'Completed'" +
       fromDate +
       tillDate +
       " )";
 
-      const paymentQuery: string =
+    const paymentQuery: string =
       "SELECT SUM(`value`) as `payments` FROM `payment` `Payment` WHERE (`Payment`.`status` = 'Completed'" +
       paymentfromDate +
       paymenttillDate +
       " )";
-    
+
     const entityManager = getManager();
     const comp = await entityManager.query(compQuery);
     const pend = await entityManager.query(pendQuery);
@@ -217,6 +219,6 @@ export const GET_REPORT_DURING = {
       usd_commission: usd[0].usd,
       btc_commission: btc[0].btc,
       payments: payments[0].payments,
-    }
+    };
   },
 };
