@@ -87,12 +87,14 @@ export const GET_TRANSACTIONS_DURING = {
     let fromDate = "";
     let tillDate = "";
     if (from && from != "") {
-      const date = moment(new Date(from)).format("yyyy-MM-DD HH:mm:ss");
+      const date = moment(new Date(from))
+        .add(1, "days")
+        .format("yyyy-MM-DD HH:mm:ss");
       fromDate = " AND `Transaction`.`date` >= '" + date + "'";
     }
     if (till && till != "") {
       const date = moment(new Date(till))
-        .add(1, "days")
+        .add(2, "days")
         .format("yyyy-MM-DD HH:mm:ss");
       tillDate = " AND `Transaction`.`date` < '" + date + "'";
     }
