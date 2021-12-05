@@ -11,7 +11,7 @@ export default function Login() {
   const [message, setMessage] = useState("");
   const router = useRouter()
 
-  const login = async (e) => {
+  const login = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     const email = inputEmail.current.value;

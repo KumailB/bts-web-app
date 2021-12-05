@@ -111,7 +111,7 @@ export default function Order({client, rate, levelRate}: OrderProps) {
               type="number"
               step="any"
               min="0"
-              onInput={e => setAmount(e.target.value)}
+              onInput={e => setAmount(e.currentTarget.value)}
               className="py-4 px-8 w-80 rounded-lg transition duration-400 bg-gray-200 hover:bg-ais-blue-gray"
             />
 

@@ -6,5 +6,8 @@ module.exports = {
     NEXT_APPLICATION_SECRET: process.env.NEXT_APPLICATION_SECRET,
     NEXT_PUBLIC_SERVER_HOST: process.env.NEXT_PUBLIC_SERVER_HOST,
     NEXT_PUBLIC_SERVER_PORT: process.env.NEXT_PUBLIC_SERVER_PORT,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   }
 }
