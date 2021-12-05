@@ -48,10 +48,13 @@ const main = async () => {
     })
   );
 
-  app.listen(process.env.SERVER_PORT, () => {
-    console.log("\nready - started server on http://"+process.env.SERVER_HOST+":"+process.env.SERVER_PORT);
+  const port = process.env.PORT || process.env.SERVER_PORT || 3000
+  const host = process.env.HOST || process.env.SERVER_HOST || 3000
+
+  app.listen(port, () => {
+    console.log("\nready - started server on http://"+host+":"+port);
     console.log(
-      "\x1b[35mgraphql\x1b[39m - now running on \x1b[34mhttp://"+process.env.SERVER_HOST+":"+process.env.SERVER_PORT+"/graphql\x1b[39m"
+      "\x1b[35mgraphql\x1b[39m - now running on \x1b[34mhttp://"+host+":"+port+"/graphql\x1b[39m"
     );
   });
 };
