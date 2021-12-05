@@ -49,6 +49,7 @@ If the client and/or server are being hosted remotely, fill out HOST and PORT fi
  - `npm install`
  - `npm run dev`
 
+Note: Make sure to disable caching in your browser to see updates quickly.
 
 ### Contributors
 - Kumail Bukhari - sxb180119
