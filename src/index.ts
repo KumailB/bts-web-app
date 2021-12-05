@@ -39,12 +39,12 @@ const main = async () => {
   const app = express();
   app.use(cors());
   app.use(express.json());
- // app.use(authMiddleware);
+  app.use(authMiddleware);
   app.use(
     "/graphql",
     graphqlHTTP({
       schema,
-      graphiql: true,
+      graphiql: false,
     })
   );
 
