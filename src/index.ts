@@ -18,7 +18,7 @@ dotenv.config();
 const main = async () => {
   await createConnection({
     type: "mysql",
-    database: "bts",
+    database: process.env.MYSQL_DB,
     host: process.env.MYSQL_HOST,
     port: Number(process.env.MYSQL_PORT),
     username: process.env.MYSQL_USERNAME,
