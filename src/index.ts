@@ -44,7 +44,7 @@ const main = async () => {
     "/graphql",
     graphqlHTTP({
       schema,
-      graphiql: false,
+      graphiql: true,
     })
   );
 
